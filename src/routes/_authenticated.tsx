@@ -26,7 +26,7 @@ function AuthLayout() {
             <div className="h-9 w-9 rounded-xl bg-primary text-primary-foreground flex items-center justify-center">
               <Dumbbell className="h-5 w-5" />
             </div>
-            <span className="font-bold text-lg tracking-tight">FORJA</span>
+            <span className="font-bold text-lg tracking-tight">Training Plan</span>
           </Link>
           <Button variant="ghost" size="sm" onClick={handleLogout}>
             <LogOut className="h-4 w-4" />
