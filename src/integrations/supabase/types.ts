@@ -14,7 +14,139 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      exercise_logs: {
+        Row: {
+          created_at: string
+          duration_seconds: number | null
+          exercise_id: string
+          id: string
+          log_date: string
+          notes: string | null
+          reps: number | null
+          set_number: number
+          user_id: string
+          weight: number | null
+        }
+        Insert: {
+          created_at?: string
+          duration_seconds?: number | null
+          exercise_id: string
+          id?: string
+          log_date?: string
+          notes?: string | null
+          reps?: number | null
+          set_number?: number
+          user_id: string
+          weight?: number | null
+        }
+        Update: {
+          created_at?: string
+          duration_seconds?: number | null
+          exercise_id?: string
+          id?: string
+          log_date?: string
+          notes?: string | null
+          reps?: number | null
+          set_number?: number
+          user_id?: string
+          weight?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exercise_logs_exercise_id_fkey"
+            columns: ["exercise_id"]
+            isOneToOne: false
+            referencedRelation: "exercises"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exercises: {
+        Row: {
+          created_at: string
+          day_id: string
+          description: string | null
+          id: string
+          muscle: string | null
+          name: string
+          position: number
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          day_id: string
+          description?: string | null
+          id?: string
+          muscle?: string | null
+          name: string
+          position?: number
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          day_id?: string
+          description?: string | null
+          id?: string
+          muscle?: string | null
+          name?: string
+          position?: number
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exercises_day_id_fkey"
+            columns: ["day_id"]
+            isOneToOne: false
+            referencedRelation: "workout_days"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+        }
+        Relationships: []
+      }
+      workout_days: {
+        Row: {
+          created_at: string
+          day_number: number
+          id: string
+          muscles: string[]
+          title: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          day_number: number
+          id?: string
+          muscles?: string[]
+          title: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          day_number?: number
+          id?: string
+          muscles?: string[]
+          title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
