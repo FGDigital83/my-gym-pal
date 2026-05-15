@@ -1,13 +1,13 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, ChevronRight, Activity, Plus, Trash2 } from "lucide-react";
+import { ArrowLeft, ChevronRight, Plus, Trash2, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { useState } from "react";
 import { toast } from "sonner";
+import { EXERCISE_CATALOG, MUSCLE_IMAGE } from "@/lib/exercise-catalog";
+import type { Muscle } from "@/lib/muscles";
 
 export const Route = createFileRoute("/_authenticated/day/$dayId")({
   component: DayPage,
@@ -20,8 +20,6 @@ function DayPage() {
   const { dayId } = Route.useParams();
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
-  const [name, setName] = useState("");
-  const [muscle, setMuscle] = useState<string>("");
 
   const { data: day } = useQuery({
     queryKey: ["day", dayId],
@@ -50,15 +48,15 @@ function DayPage() {
   });
 
   const addExercise = useMutation({
-    mutationFn: async () => {
+    mutationFn: async (payload: { name: string; muscle: string }) => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) throw new Error("No auth");
       const next = (exercises?.at(-1)?.position ?? 0) + 1;
       const { error } = await supabase.from("exercises").insert({
         day_id: dayId,
         user_id: u.user.id,
-        name: name.trim(),
-        muscle: muscle || null,
+        name: payload.name,
+        muscle: payload.muscle,
         position: next,
       });
       if (error) throw error;
@@ -66,9 +64,6 @@ function DayPage() {
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["exercises", dayId] });
       toast.success("Ejercicio añadido");
-      setOpen(false);
-      setName("");
-      setMuscle("");
     },
     onError: (e) => toast.error(e instanceof Error ? e.message : "Error"),
   });
@@ -84,6 +79,9 @@ function DayPage() {
       toast.success("Ejercicio eliminado");
     },
   });
+
+  const addedNames = new Set(exercises?.map((e) => e.name) ?? []);
+  const dayMuscles = (day?.muscles ?? []) as Muscle[];
 
   return (
     <div className="space-y-6">
@@ -105,97 +103,120 @@ function DayPage() {
 
       <div className="flex items-center justify-between">
         <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">Ejercicios</h2>
-        <Button size="sm" onClick={() => setOpen(true)}>
+        <Button size="sm" onClick={() => setOpen(true)} disabled={dayMuscles.length === 0}>
           <Plus className="h-4 w-4" /> Añadir
         </Button>
       </div>
 
+      {dayMuscles.length === 0 && (
+        <p className="text-sm text-muted-foreground py-4 text-center rounded-xl border border-dashed">
+          Añade músculos a este día desde el plan para poder elegir ejercicios.
+        </p>
+      )}
+
       {isLoading && (
         <div className="space-y-2">
-          {[1, 2, 3].map((i) => <div key={i} className="h-16 rounded-xl bg-card animate-pulse" />)}
+          {[1, 2, 3].map((i) => <div key={i} className="h-20 rounded-xl bg-card animate-pulse" />)}
         </div>
       )}
 
-      {!isLoading && exercises?.length === 0 && (
+      {!isLoading && exercises?.length === 0 && dayMuscles.length > 0 && (
         <p className="text-sm text-muted-foreground py-8 text-center rounded-xl border border-dashed">
-          Aún no hay ejercicios. Añade el primero.
+          Aún no hay ejercicios. Pulsa "Añadir" para elegir.
         </p>
       )}
 
       <div className="space-y-2">
-        {exercises?.map((ex, idx) => (
-          <div key={ex.id} className="relative group">
-            <Link
-              to="/exercise/$exerciseId"
-              params={{ exerciseId: ex.id }}
-              className="flex items-center gap-4 rounded-xl border bg-card p-4 transition hover:border-primary"
-            >
-              <div className="h-10 w-10 rounded-lg bg-muted flex items-center justify-center font-bold text-primary">
-                {String(idx + 1).padStart(2, "0")}
-              </div>
-              <div className="flex-1 min-w-0 pr-8">
-                <div className="font-semibold truncate">{ex.name}</div>
-                {ex.muscle && <div className="text-xs text-muted-foreground">{ex.muscle}</div>}
-              </div>
-              <Activity className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
-              <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
-            </Link>
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                if (confirm(`¿Eliminar "${ex.name}"?`)) deleteExercise.mutate(ex.id);
-              }}
-              className="absolute top-2 right-2 p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition"
-              aria-label="Eliminar"
-            >
-              <Trash2 className="h-3.5 w-3.5" />
-            </button>
-          </div>
-        ))}
+        {exercises?.map((ex, idx) => {
+          const img = ex.muscle ? MUSCLE_IMAGE[ex.muscle as Muscle] : undefined;
+          return (
+            <div key={ex.id} className="relative group">
+              <Link
+                to="/exercise/$exerciseId"
+                params={{ exerciseId: ex.id }}
+                className="flex items-center gap-3 rounded-xl border bg-card p-3 transition hover:border-primary"
+              >
+                <div className="h-14 w-14 rounded-lg overflow-hidden bg-muted flex items-center justify-center shrink-0">
+                  {img ? (
+                    <img src={img} alt={ex.muscle ?? ""} loading="lazy" width={56} height={56} className="h-full w-full object-cover" />
+                  ) : (
+                    <span className="font-bold text-primary text-sm">{String(idx + 1).padStart(2, "0")}</span>
+                  )}
+                </div>
+                <div className="flex-1 min-w-0 pr-8">
+                  <div className="font-semibold truncate">{ex.name}</div>
+                  {ex.muscle && <div className="text-xs text-muted-foreground">{ex.muscle}</div>}
+                </div>
+                <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
+              </Link>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (confirm(`¿Eliminar "${ex.name}"?`)) deleteExercise.mutate(ex.id);
+                }}
+                className="absolute top-2 right-2 p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition"
+                aria-label="Eliminar"
+              >
+                <Trash2 className="h-3.5 w-3.5" />
+              </button>
+            </div>
+          );
+        })}
       </div>
 
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Nuevo ejercicio</DialogTitle>
+            <DialogTitle>Elige ejercicios</DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-1.5">
-              <Label>Nombre</Label>
-              <Input value={name} onChange={(e) => setName(e.target.value)} placeholder="Ej. Press de banca" />
-            </div>
-            <div className="space-y-2">
-              <Label>Músculo (opcional)</Label>
-              <div className="flex flex-wrap gap-2">
-                {(day?.muscles ?? []).map((m) => {
-                  const active = muscle === m;
-                  return (
-                    <button
-                      key={m}
-                      type="button"
-                      onClick={() => setMuscle(active ? "" : m)}
-                      className={`text-xs px-3 py-1.5 rounded-md border transition ${
-                        active
-                          ? "bg-primary text-primary-foreground border-primary"
-                          : "bg-card text-foreground border-border hover:border-primary"
-                      }`}
-                    >
-                      {m}
-                    </button>
-                  );
-                })}
-                {(day?.muscles ?? []).length === 0 && (
-                  <span className="text-xs text-muted-foreground">Añade músculos al día desde el plan.</span>
-                )}
-              </div>
-            </div>
+          <div className="space-y-6">
+            {dayMuscles.map((m) => {
+              const items = EXERCISE_CATALOG[m] ?? [];
+              const img = MUSCLE_IMAGE[m];
+              return (
+                <section key={m} className="space-y-2">
+                  <div className="flex items-center gap-2">
+                    {img && (
+                      <img src={img} alt={m} loading="lazy" width={28} height={28} className="h-7 w-7 rounded-md object-cover" />
+                    )}
+                    <h3 className="text-sm font-bold uppercase tracking-wider text-primary">{m}</h3>
+                  </div>
+                  <div className="grid grid-cols-1 gap-2">
+                    {items.map((ex) => {
+                      const added = addedNames.has(ex.name);
+                      return (
+                        <button
+                          key={ex.name}
+                          type="button"
+                          onClick={() => addExercise.mutate({ name: ex.name, muscle: m })}
+                          disabled={added || addExercise.isPending}
+                          className={`flex items-center gap-3 rounded-xl border p-2.5 text-left transition ${
+                            added
+                              ? "border-primary/40 bg-primary/10 opacity-60"
+                              : "bg-card border-border hover:border-primary"
+                          }`}
+                        >
+                          <div className="h-12 w-12 rounded-lg overflow-hidden bg-muted shrink-0">
+                            {img && (
+                              <img src={img} alt="" loading="lazy" width={48} height={48} className="h-full w-full object-cover" />
+                            )}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-sm truncate">{ex.name}</div>
+                          </div>
+                          {added ? (
+                            <Check className="h-4 w-4 text-primary shrink-0" />
+                          ) : (
+                            <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
+                          )}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </section>
+              );
+            })}
           </div>
-          <DialogFooter>
-            <Button variant="ghost" onClick={() => setOpen(false)}>Cancelar</Button>
-            <Button onClick={() => addExercise.mutate()} disabled={addExercise.isPending || !name.trim()}>
-              Añadir
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>
