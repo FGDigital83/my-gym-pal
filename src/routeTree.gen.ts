@@ -9,38 +9,104 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated.plan'
+import { Route as AuthenticatedExerciseExerciseIdRouteImport } from './routes/_authenticated.exercise.$exerciseId'
+import { Route as AuthenticatedDayDayIdRouteImport } from './routes/_authenticated.day.$dayId'
 
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRoute = AuthenticatedRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
+const AuthenticatedExerciseExerciseIdRoute =
+  AuthenticatedExerciseExerciseIdRouteImport.update({
+    id: '/exercise/$exerciseId',
+    path: '/exercise/$exerciseId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
+const AuthenticatedDayDayIdRoute = AuthenticatedDayDayIdRouteImport.update({
+  id: '/day/$dayId',
+  path: '/day/$dayId',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/plan': typeof AuthenticatedPlanRoute
+  '/day/$dayId': typeof AuthenticatedDayDayIdRoute
+  '/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/login': typeof LoginRoute
+  '/plan': typeof AuthenticatedPlanRoute
+  '/day/$dayId': typeof AuthenticatedDayDayIdRoute
+  '/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_authenticated': typeof AuthenticatedRouteWithChildren
+  '/login': typeof LoginRoute
+  '/_authenticated/plan': typeof AuthenticatedPlanRoute
+  '/_authenticated/day/$dayId': typeof AuthenticatedDayDayIdRoute
+  '/_authenticated/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/login' | '/plan' | '/day/$dayId' | '/exercise/$exerciseId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/login' | '/plan' | '/day/$dayId' | '/exercise/$exerciseId'
+  id:
+    | '__root__'
+    | '/'
+    | '/_authenticated'
+    | '/login'
+    | '/_authenticated/plan'
+    | '/_authenticated/day/$dayId'
+    | '/_authenticated/exercise/$exerciseId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AuthenticatedRoute: typeof AuthenticatedRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +114,51 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_authenticated/plan': {
+      id: '/_authenticated/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof AuthenticatedPlanRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/exercise/$exerciseId': {
+      id: '/_authenticated/exercise/$exerciseId'
+      path: '/exercise/$exerciseId'
+      fullPath: '/exercise/$exerciseId'
+      preLoaderRoute: typeof AuthenticatedExerciseExerciseIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/day/$dayId': {
+      id: '/_authenticated/day/$dayId'
+      path: '/day/$dayId'
+      fullPath: '/day/$dayId'
+      preLoaderRoute: typeof AuthenticatedDayDayIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
   }
 }
 
+interface AuthenticatedRouteChildren {
+  AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
+  AuthenticatedDayDayIdRoute: typeof AuthenticatedDayDayIdRoute
+  AuthenticatedExerciseExerciseIdRoute: typeof AuthenticatedExerciseExerciseIdRoute
+}
+
+const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedPlanRoute: AuthenticatedPlanRoute,
+  AuthenticatedDayDayIdRoute: AuthenticatedDayDayIdRoute,
+  AuthenticatedExerciseExerciseIdRoute: AuthenticatedExerciseExerciseIdRoute,
+}
+
+const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
+  AuthenticatedRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AuthenticatedRoute: AuthenticatedRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
