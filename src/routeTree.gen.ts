@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated.plan'
+import { Route as AuthenticatedExerciseExerciseIdRouteImport } from './routes/_authenticated.exercise.$exerciseId'
 import { Route as AuthenticatedDayDayIdRouteImport } from './routes/_authenticated.day.$dayId'
 
 const LoginRoute = LoginRouteImport.update({
@@ -34,6 +35,12 @@ const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
   path: '/plan',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedExerciseExerciseIdRoute =
+  AuthenticatedExerciseExerciseIdRouteImport.update({
+    id: '/exercise/$exerciseId',
+    path: '/exercise/$exerciseId',
+    getParentRoute: () => AuthenticatedRoute,
+  } as any)
 const AuthenticatedDayDayIdRoute = AuthenticatedDayDayIdRouteImport.update({
   id: '/day/$dayId',
   path: '/day/$dayId',
@@ -45,12 +52,14 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/day/$dayId': typeof AuthenticatedDayDayIdRoute
+  '/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/day/$dayId': typeof AuthenticatedDayDayIdRoute
+  '/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -59,12 +68,13 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/day/$dayId': typeof AuthenticatedDayDayIdRoute
+  '/_authenticated/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/login' | '/plan' | '/day/$dayId'
+  fullPaths: '/' | '/login' | '/plan' | '/day/$dayId' | '/exercise/$exerciseId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/login' | '/plan' | '/day/$dayId'
+  to: '/' | '/login' | '/plan' | '/day/$dayId' | '/exercise/$exerciseId'
   id:
     | '__root__'
     | '/'
@@ -72,6 +82,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/_authenticated/plan'
     | '/_authenticated/day/$dayId'
+    | '/_authenticated/exercise/$exerciseId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -110,6 +121,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPlanRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/exercise/$exerciseId': {
+      id: '/_authenticated/exercise/$exerciseId'
+      path: '/exercise/$exerciseId'
+      fullPath: '/exercise/$exerciseId'
+      preLoaderRoute: typeof AuthenticatedExerciseExerciseIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/day/$dayId': {
       id: '/_authenticated/day/$dayId'
       path: '/day/$dayId'
@@ -123,11 +141,13 @@ declare module '@tanstack/react-router' {
 interface AuthenticatedRouteChildren {
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedDayDayIdRoute: typeof AuthenticatedDayDayIdRoute
+  AuthenticatedExerciseExerciseIdRoute: typeof AuthenticatedExerciseExerciseIdRoute
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedDayDayIdRoute: AuthenticatedDayDayIdRoute,
+  AuthenticatedExerciseExerciseIdRoute: AuthenticatedExerciseExerciseIdRoute,
 }
 
 const AuthenticatedRouteWithChildren = AuthenticatedRoute._addFileChildren(
