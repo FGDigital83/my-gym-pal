@@ -128,7 +128,7 @@ function ExercisePage() {
             <Input inputMode="decimal" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="40" />
           </div>
           <div className="space-y-1.5">
-            <Label className="text-xs">Tiempo (s)</Label>
+            <Label className="text-xs">Tiempo de descanso (s)</Label>
             <Input inputMode="numeric" value={duration} onChange={(e) => setDuration(e.target.value)} placeholder="60" />
           </div>
         </div>

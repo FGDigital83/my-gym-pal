@@ -70,7 +70,7 @@ function LoginPage() {
             <Dumbbell className="h-6 w-6" />
           </div>
           <div>
-            <h1 className="text-3xl font-bold tracking-tight">FORJA</h1>
+            <h1 className="text-3xl font-bold tracking-tight">Training Plan</h1>
             <p className="text-xs text-muted-foreground uppercase tracking-[0.2em]">tu plan, tu progreso</p>
           </div>
         </div>

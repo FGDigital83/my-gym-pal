@@ -75,10 +75,10 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1, maximum-scale=1" },
-      { title: "FORJA — Tu plan de gym personal" },
+      { title: "Training Plan — Tu plan de gym personal" },
       { name: "description", content: "Plan semanal de entrenamiento por grupos musculares. Anota series, reps, peso y tiempo." },
-      { name: "author", content: "FORJA" },
-      { property: "og:title", content: "FORJA — Tu plan de gym personal" },
+      { name: "author", content: "Training Plan" },
+      { property: "og:title", content: "Training Plan — Tu plan de gym personal" },
       { property: "og:description", content: "Plan semanal de entrenamiento. Anota series, reps, peso y tiempo." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
