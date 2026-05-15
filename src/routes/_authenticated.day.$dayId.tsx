@@ -21,6 +21,8 @@ function DayPage() {
   const { dayId } = Route.useParams();
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
+  const [customFor, setCustomFor] = useState<Muscle | null>(null);
+  const [customName, setCustomName] = useState("");
 
   const { data: day } = useQuery({
     queryKey: ["day", dayId],
@@ -176,12 +178,58 @@ function DayPage() {
               const img = MUSCLE_IMAGE[m];
               return (
                 <section key={m} className="space-y-2">
-                  <div className="flex items-center gap-2">
-                    {img && (
-                      <img src={img} alt={m} loading="lazy" width={28} height={28} className="h-7 w-7 rounded-md object-cover" />
-                    )}
-                    <h3 className="text-sm font-bold uppercase tracking-wider text-primary">{m}</h3>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      {img && (
+                        <img src={img} alt={m} loading="lazy" width={28} height={28} className="h-7 w-7 rounded-md object-cover" />
+                      )}
+                      <h3 className="text-sm font-bold uppercase tracking-wider text-primary">{m}</h3>
+                    </div>
+                    <Button
+                      type="button"
+                      size="sm"
+                      variant="outline"
+                      onClick={() => {
+                        setCustomFor(customFor === m ? null : m);
+                        setCustomName("");
+                      }}
+                    >
+                      <Plus className="h-3.5 w-3.5" /> Añadir
+                    </Button>
                   </div>
+                  {customFor === m && (
+                    <form
+                      onSubmit={(e) => {
+                        e.preventDefault();
+                        const name = customName.trim();
+                        if (!name) return;
+                        if (addedNames.has(name)) {
+                          toast.error("Ya está añadido");
+                          return;
+                        }
+                        addExercise.mutate(
+                          { name, muscle: m },
+                          {
+                            onSuccess: () => {
+                              setCustomName("");
+                              setCustomFor(null);
+                            },
+                          },
+                        );
+                      }}
+                      className="flex gap-2"
+                    >
+                      <Input
+                        autoFocus
+                        value={customName}
+                        onChange={(e) => setCustomName(e.target.value)}
+                        placeholder={`Nuevo ejercicio de ${m.toLowerCase()}`}
+                      />
+                      <Button type="submit" size="sm" disabled={!customName.trim() || addExercise.isPending}>
+                        <Check className="h-4 w-4" />
+                      </Button>
+                    </form>
+                  )}
                   <div className="grid grid-cols-1 gap-2">
                     {items.map((ex) => {
                       const added = addedNames.has(ex.name);
