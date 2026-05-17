@@ -101,12 +101,12 @@ function HealthPage() {
         </Button>
       </div>
 
-      <BmiChart bmi={bmi} t={t} category={category} />
+      <BmiChart bmi={bmi} t={t} category={category} userH={h} userW={w} />
     </div>
   );
 }
 
-function BmiChart({ bmi, t, category }: { bmi: number | null; t: (k: any) => string; category: string | null }) {
+function BmiChart({ bmi, t, category, userH, userW }: { bmi: number | null; t: (k: any) => string; category: string | null; userH: number; userW: number }) {
   // Linear plot: X = altura (cm) 140–210, Y = peso (kg) 30–150
   const hMin = 140, hMax = 210, wMin = 30, wMax = 150;
   const W = 360, H = 320, padL = 36, padB = 28, padT = 12, padR = 12;
