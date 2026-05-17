@@ -129,8 +129,6 @@ function BmiChart({ bmi, t, category, userH, userW }: { bmi: number | null; t: (
     return "M" + top.join(" L") + " L" + bot.reverse().join(" L") + " Z";
   };
 
-  const data = useUserHW();
-  const userH = data.h, userW = data.w;
   const validUser = userH >= hMin && userH <= hMax && userW >= wMin && userW <= wMax;
 
   const xTicks = [140, 150, 160, 170, 180, 190, 200, 210];
@@ -200,9 +198,3 @@ function BmiChart({ bmi, t, category, userH, userW }: { bmi: number | null; t: (
   );
 }
 
-function useUserHW() {
-  // Read directly from the form context via custom event-less approach: query the inputs.
-  // Simpler: re-read from React state by lifting; but to avoid refactor we use a noop and rely on parent props through a hack.
-  // Instead, parse from window if needed. We'll return zeros if not available.
-  return { h: 0, w: 0 };
-}
