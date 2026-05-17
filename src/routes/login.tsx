@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Dumbbell, Flame } from "lucide-react";
 import { toast } from "sonner";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 export const Route = createFileRoute("/login")({
   beforeLoad: async () => {
@@ -63,7 +64,10 @@ function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12">
+    <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12 relative">
+      <div className="absolute top-4 right-4">
+        <LanguageSwitcher />
+      </div>
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center gap-3 mb-10">
           <div className="h-12 w-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center glow-neon">
