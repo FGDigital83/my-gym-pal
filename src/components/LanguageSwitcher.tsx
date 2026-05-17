@@ -1,4 +1,3 @@
-import { Languages } from "lucide-react";
 import { LANGUAGES, useI18n, type LangCode } from "@/lib/i18n";
 import {
   DropdownMenu,
@@ -7,16 +6,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import { ChevronDown } from "lucide-react";
 
 export function LanguageSwitcher() {
   const { lang, setLang } = useI18n();
-  const current = LANGUAGES.find((l) => l.code === lang)?.name ?? "Español";
+  const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-1.5">
-          <Languages className="h-4 w-4" />
-          <span className="hidden sm:inline">{current}</span>
+          <span className="text-lg leading-none">{current.flag}</span>
+          <span className="hidden sm:inline">{current.name}</span>
+          <ChevronDown className="h-3.5 w-3.5 opacity-60" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="max-h-80 overflow-y-auto">
@@ -24,9 +25,10 @@ export function LanguageSwitcher() {
           <DropdownMenuItem
             key={l.code}
             onClick={() => setLang(l.code as LangCode)}
-            className={l.code === lang ? "font-semibold text-primary" : ""}
+            className={`gap-2 ${l.code === lang ? "font-semibold text-primary" : ""}`}
           >
-            {l.name}
+            <span className="text-lg leading-none">{l.flag}</span>
+            <span>{l.name}</span>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>

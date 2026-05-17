@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/day/$dayId")({
   component: DayPage,
 });
 
-type Day = { id: string; day_number: number; title: string; muscles: string[] };
+type Day = { id: string; day_number: number; title: string; muscles: string[]; created_at: string };
 type Exercise = { id: string; name: string; muscle: string | null; position: number };
 
 function DayPage() {
@@ -29,7 +29,7 @@ function DayPage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("workout_days")
-        .select("id, day_number, title, muscles")
+        .select("id, day_number, title, muscles, created_at")
         .eq("id", dayId)
         .single();
       if (error) throw error;
@@ -94,7 +94,9 @@ function DayPage() {
 
       {day && (
         <section className="space-y-2">
-          <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Día {day.day_number}</p>
+          <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">
+            {new Date(day.created_at).toLocaleDateString(undefined, { day: "2-digit", month: "long", year: "numeric" })}
+          </p>
           <h1 className="text-3xl sm:text-4xl font-bold">{day.title}</h1>
           <div className="flex flex-wrap gap-1.5 pt-2">
             {day.muscles.map((m) => (
