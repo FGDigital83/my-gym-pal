@@ -14,7 +14,7 @@ export const Route = createFileRoute("/_authenticated/plan")({
   component: PlanPage,
 });
 
-type Day = { id: string; day_number: number; title: string; muscles: string[] };
+type Day = { id: string; day_number: number; title: string; muscles: string[]; created_at: string };
 
 function PlanPage() {
   const qc = useQueryClient();
@@ -27,8 +27,8 @@ function PlanPage() {
     queryFn: async () => {
       const { data, error } = await supabase
         .from("workout_days")
-        .select("id, day_number, title, muscles")
-        .order("day_number", { ascending: true });
+        .select("id, day_number, title, muscles, created_at")
+        .order("created_at", { ascending: false });
       if (error) throw error;
       return data as Day[];
     },
@@ -38,11 +38,12 @@ function PlanPage() {
     mutationFn: async () => {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) throw new Error("No auth");
-      const next = (days?.at(-1)?.day_number ?? 0) + 1;
+      const next = ((days?.[0]?.day_number) ?? 0) + 1;
+      const today = new Date().toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
       const { error } = await supabase.from("workout_days").insert({
         user_id: u.user.id,
         day_number: next,
-        title: title.trim() || `Día ${next}`,
+        title: title.trim() || today,
         muscles: selected,
       });
       if (error) throw error;
@@ -114,7 +115,7 @@ function PlanPage() {
                 <div className="flex-1 min-w-0 pr-8">
                   <div className="flex items-center gap-2 text-xs text-primary font-semibold uppercase tracking-wider">
                     <Calendar className="h-3.5 w-3.5" />
-                    Día {day.day_number}
+                    {new Date(day.created_at).toLocaleDateString(undefined, { day: "2-digit", month: "long", year: "numeric" })}
                   </div>
                   <h2 className="mt-1 text-xl font-bold truncate">{day.title}</h2>
                   <div className="mt-3 flex flex-wrap gap-1.5">
