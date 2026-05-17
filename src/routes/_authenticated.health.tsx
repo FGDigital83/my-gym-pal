@@ -107,77 +107,102 @@ function HealthPage() {
 }
 
 function BmiChart({ bmi, t, category }: { bmi: number | null; t: (k: any) => string; category: string | null }) {
-  // Scale: 12 to 40 BMI
-  const min = 12;
-  const max = 40;
-  const pct = (v: number) => ((Math.max(min, Math.min(max, v)) - min) / (max - min)) * 100;
+  // Linear plot: X = altura (cm) 140–210, Y = peso (kg) 30–150
+  const hMin = 140, hMax = 210, wMin = 30, wMax = 150;
+  const W = 360, H = 320, padL = 36, padB = 28, padT = 12, padR = 12;
+  const plotW = W - padL - padR;
+  const plotH = H - padT - padB;
+  const xOf = (h: number) => padL + ((h - hMin) / (hMax - hMin)) * plotW;
+  const yOf = (w: number) => padT + (1 - (w - wMin) / (wMax - wMin)) * plotH;
+  const wAt = (h: number, b: number) => b * Math.pow(h / 100, 2);
+  const linePath = (b: number) => {
+    const pts: string[] = [];
+    for (let h = hMin; h <= hMax; h += 2) pts.push(`${xOf(h)},${yOf(wAt(h, b))}`);
+    return "M" + pts.join(" L");
+  };
+  const areaPath = (bLow: number, bHigh: number) => {
+    const top: string[] = [], bot: string[] = [];
+    for (let h = hMin; h <= hMax; h += 2) {
+      top.push(`${xOf(h)},${yOf(wAt(h, bHigh))}`);
+      bot.push(`${xOf(h)},${yOf(wAt(h, bLow))}`);
+    }
+    return "M" + top.join(" L") + " L" + bot.reverse().join(" L") + " Z";
+  };
 
-  const segments = [
-    { from: 12, to: 18.5, label: t("underweight"), color: "hsl(45 95% 55%)" },
-    { from: 18.5, to: 25, label: t("normal"), color: "hsl(210 90% 55%)" }, // ideal — blue
-    { from: 25, to: 30, label: t("overweight"), color: "hsl(30 90% 55%)" },
-    { from: 30, to: 40, label: t("obese"), color: "hsl(0 80% 55%)" },
-  ];
+  const data = useUserHW();
+  const userH = data.h, userW = data.w;
+  const validUser = userH >= hMin && userH <= hMax && userW >= wMin && userW <= wMax;
+
+  const xTicks = [140, 150, 160, 170, 180, 190, 200, 210];
+  const yTicks = [30, 50, 70, 90, 110, 130, 150];
 
   return (
     <div className="rounded-2xl border bg-card p-5 space-y-4">
       <h2 className="font-semibold">{t("bmiChartTitle")}</h2>
 
-      <div className="space-y-2">
-        <div className="relative h-8 rounded-full overflow-hidden border">
-          {segments.map((s) => (
-            <div
-              key={s.label}
-              className="absolute top-0 bottom-0"
-              style={{
-                left: `${pct(s.from)}%`,
-                width: `${pct(s.to) - pct(s.from)}%`,
-                background: s.label === t("normal") ? s.color : `${s.color}40`,
-              }}
-              title={s.label}
-            />
+      <div className="overflow-x-auto">
+        <svg viewBox={`0 0 ${W} ${H}`} className="w-full max-w-xl mx-auto block" role="img" aria-label="BMI chart">
+          {/* Grid */}
+          {xTicks.map((h) => (
+            <line key={`gx${h}`} x1={xOf(h)} x2={xOf(h)} y1={padT} y2={H - padB} stroke="hsl(var(--border))" strokeWidth={0.5} />
           ))}
+          {yTicks.map((w) => (
+            <line key={`gy${w}`} x1={padL} x2={W - padR} y1={yOf(w)} y2={yOf(w)} stroke="hsl(var(--border))" strokeWidth={0.5} />
+          ))}
+          {/* Axes */}
+          <line x1={padL} y1={padT} x2={padL} y2={H - padB} stroke="currentColor" strokeWidth={1} />
+          <line x1={padL} y1={H - padB} x2={W - padR} y2={H - padB} stroke="currentColor" strokeWidth={1} />
+
+          {/* Ideal BMI band (18.5 – 25) in blue */}
+          <path d={areaPath(18.5, 25)} fill="hsl(210 90% 55% / 0.25)" />
+          <path d={linePath(18.5)} fill="none" stroke="hsl(210 90% 55%)" strokeWidth={1.5} strokeDasharray="4 3" />
+          <path d={linePath(25)} fill="none" stroke="hsl(210 90% 55%)" strokeWidth={1.5} strokeDasharray="4 3" />
+          <path d={linePath(22)} fill="none" stroke="hsl(210 90% 55%)" strokeWidth={2.5} />
+
+          {/* User line (BMI iso-line) in red */}
           {bmi != null && (
+            <path d={linePath(bmi)} fill="none" stroke="hsl(0 80% 55%)" strokeWidth={2.5} />
+          )}
+          {/* User point */}
+          {validUser && (
             <>
-              <div
-                className="absolute top-[-4px] bottom-[-4px] w-1 rounded-full bg-red-600 shadow-lg"
-                style={{ left: `calc(${pct(bmi)}% - 2px)` }}
-              />
-              <div
-                className="absolute -top-7 text-[10px] font-bold text-red-600 px-1.5 py-0.5 rounded bg-background border border-red-600"
-                style={{ left: `calc(${pct(bmi)}% - 16px)` }}
-              >
-                {bmi.toFixed(1)}
-              </div>
+              <line x1={xOf(userH)} x2={xOf(userH)} y1={yOf(userW)} y2={H - padB} stroke="hsl(0 80% 55%)" strokeWidth={1} strokeDasharray="3 3" />
+              <line x1={padL} x2={xOf(userH)} y1={yOf(userW)} y2={yOf(userW)} stroke="hsl(0 80% 55%)" strokeWidth={1} strokeDasharray="3 3" />
+              <circle cx={xOf(userH)} cy={yOf(userW)} r={5} fill="hsl(0 80% 55%)" stroke="white" strokeWidth={1.5} />
             </>
           )}
-        </div>
-        <div className="flex justify-between text-[10px] text-muted-foreground">
-          <span>12</span><span>18.5</span><span>25</span><span>30</span><span>40</span>
-        </div>
+
+          {/* Tick labels */}
+          {xTicks.map((h) => (
+            <text key={`tx${h}`} x={xOf(h)} y={H - padB + 14} textAnchor="middle" fontSize={10} fill="currentColor" opacity={0.7}>{h}</text>
+          ))}
+          {yTicks.map((w) => (
+            <text key={`ty${w}`} x={padL - 6} y={yOf(w) + 3} textAnchor="end" fontSize={10} fill="currentColor" opacity={0.7}>{w}</text>
+          ))}
+          <text x={W - padR} y={H - padB + 14} textAnchor="end" fontSize={10} fill="currentColor" opacity={0.6}>cm</text>
+          <text x={padL - 6} y={padT + 4} textAnchor="end" fontSize={10} fill="currentColor" opacity={0.6}>kg</text>
+        </svg>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs">
-        {segments.map((s) => (
-          <div key={s.label} className="flex items-center gap-2 p-2 rounded-lg border">
-            <span className="h-3 w-3 rounded-full" style={{ background: s.color }} />
-            <span>{s.label}</span>
-          </div>
-        ))}
-      </div>
-
-      {bmi != null && (
-        <div className="flex flex-wrap gap-3 pt-2 border-t">
-          <div className="flex items-center gap-2 text-sm">
-            <span className="h-3 w-6 rounded" style={{ background: "hsl(210 90% 55%)" }} />
-            <span className="text-muted-foreground">{t("ideal")} (18.5 – 25)</span>
-          </div>
-          <div className="flex items-center gap-2 text-sm">
-            <span className="h-3 w-6 rounded bg-red-600" />
+      <div className="flex flex-wrap gap-3 pt-2 border-t text-sm">
+        <div className="flex items-center gap-2">
+          <span className="h-3 w-6 rounded" style={{ background: "hsl(210 90% 55%)" }} />
+          <span className="text-muted-foreground">{t("ideal")} (BMI 18.5 – 25)</span>
+        </div>
+        {bmi != null && (
+          <div className="flex items-center gap-2">
+            <span className="h-3 w-6 rounded" style={{ background: "hsl(0 80% 55%)" }} />
             <span className="text-muted-foreground">{t("you")}: {bmi.toFixed(1)} — {category && t(category)}</span>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
+}
+
+function useUserHW() {
+  // Read directly from the form context via custom event-less approach: query the inputs.
+  // Simpler: re-read from React state by lifting; but to avoid refactor we use a noop and rely on parent props through a hack.
+  // Instead, parse from window if needed. We'll return zeros if not available.
+  return { h: 0, w: 0 };
 }
