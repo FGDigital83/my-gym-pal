@@ -39,7 +39,8 @@ function PlanPage() {
       const { data: u } = await supabase.auth.getUser();
       if (!u.user) throw new Error("No auth");
       const next = ((days?.[0]?.day_number) ?? 0) + 1;
-      const today = new Date().toLocaleDateString(undefined, { day: "2-digit", month: "short", year: "numeric" });
+      const d = new Date();
+      const today = `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`;
       const { error } = await supabase.from("workout_days").insert({
         user_id: u.user.id,
         day_number: next,
@@ -115,7 +116,7 @@ function PlanPage() {
                 <div className="flex-1 min-w-0 pr-8">
                   <div className="flex items-center gap-2 text-xs text-primary font-semibold uppercase tracking-wider">
                     <Calendar className="h-3.5 w-3.5" />
-                    {new Date(day.created_at).toLocaleDateString(undefined, { day: "2-digit", month: "long", year: "numeric" })}
+                    {(() => { const d = new Date(day.created_at); return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`; })()}
                   </div>
                   <h2 className="mt-1 text-xl font-bold truncate">{day.title}</h2>
                   <div className="mt-3 flex flex-wrap gap-1.5">

@@ -95,7 +95,7 @@ function DayPage() {
       {day && (
         <section className="space-y-2">
           <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">
-            {new Date(day.created_at).toLocaleDateString(undefined, { day: "2-digit", month: "long", year: "numeric" })}
+            {(() => { const d = new Date(day.created_at); return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`; })()}
           </p>
           <h1 className="text-3xl sm:text-4xl font-bold">{day.title}</h1>
           <div className="flex flex-wrap gap-1.5 pt-2">
