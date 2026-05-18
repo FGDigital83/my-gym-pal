@@ -1,4 +1,4 @@
-import { LANGUAGES, useI18n, type LangCode } from "@/lib/i18n";
+import { LANGUAGES, useI18n, flagUrl, type LangCode } from "@/lib/i18n";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,13 @@ export function LanguageSwitcher() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" size="sm" className="gap-1.5">
-          <span className="text-lg leading-none">{current.flag}</span>
+          <img
+            src={flagUrl(current.country)}
+            alt={current.name}
+            width={20}
+            height={15}
+            className="h-[15px] w-[20px] rounded-sm object-cover shadow-sm"
+          />
           <span className="hidden sm:inline">{current.name}</span>
           <ChevronDown className="h-3.5 w-3.5 opacity-60" />
         </Button>
@@ -27,7 +33,13 @@ export function LanguageSwitcher() {
             onClick={() => setLang(l.code as LangCode)}
             className={`gap-2 ${l.code === lang ? "font-semibold text-primary" : ""}`}
           >
-            <span className="text-lg leading-none">{l.flag}</span>
+            <img
+              src={flagUrl(l.country)}
+              alt=""
+              width={20}
+              height={15}
+              className="h-[15px] w-[20px] rounded-sm object-cover shadow-sm"
+            />
             <span>{l.name}</span>
           </DropdownMenuItem>
         ))}
