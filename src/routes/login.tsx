@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Dumbbell, Flame } from "lucide-react";
 import { toast } from "sonner";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { useI18n } from "@/lib/i18n";
 
 export const Route = createFileRoute("/login")({
   beforeLoad: async () => {
@@ -19,6 +20,7 @@ export const Route = createFileRoute("/login")({
 });
 
 function LoginPage() {
+  const { t } = useI18n();
   const navigate = useNavigate();
   const [mode, setMode] = useState<"signin" | "signup">("signin");
   const [email, setEmail] = useState("");
@@ -46,13 +48,13 @@ function LoginPage() {
           },
         });
         if (error) throw error;
-        toast.success("Cuenta creada. Revisa tu email para confirmar.");
+        toast.success(t("accountCreated"));
       } else {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : "Error");
+      toast.error(err instanceof Error ? err.message : t("errorGeneric"));
     } finally {
       setLoading(false);
     }
@@ -60,7 +62,7 @@ function LoginPage() {
 
   const handleGoogle = async () => {
     const result = await lovable.auth.signInWithOAuth("google", { redirect_uri: window.location.origin });
-    if (result.error) toast.error("No se pudo iniciar sesión con Google");
+    if (result.error) toast.error(t("googleError"));
   };
 
   return (
@@ -75,7 +77,7 @@ function LoginPage() {
           </div>
           <div>
             <h1 className="text-3xl font-bold tracking-tight">Training Plan</h1>
-            <p className="text-xs text-muted-foreground uppercase tracking-[0.2em]">tu plan, tu progreso</p>
+            <p className="text-xs text-muted-foreground uppercase tracking-[0.2em]">{t("brandTag")}</p>
           </div>
         </div>
 
@@ -85,44 +87,44 @@ function LoginPage() {
               type="button"
               onClick={() => setMode("signin")}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${mode === "signin" ? "bg-card text-foreground shadow" : "text-muted-foreground"}`}
-            >Entrar</button>
+            >{t("signin")}</button>
             <button
               type="button"
               onClick={() => setMode("signup")}
               className={`flex-1 py-2 rounded-lg text-sm font-medium transition ${mode === "signup" ? "bg-card text-foreground shadow" : "text-muted-foreground"}`}
-            >Crear cuenta</button>
+            >{t("signup")}</button>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             {mode === "signup" && (
               <div className="space-y-2">
-                <Label htmlFor="name">Nombre</Label>
-                <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Tu nombre" />
+                <Label htmlFor="name">{t("name")}</Label>
+                <Input id="name" value={name} onChange={(e) => setName(e.target.value)} placeholder={t("namePh")} />
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder="tu@email.com" />
+              <Label htmlFor="email">{t("email")}</Label>
+              <Input id="email" type="email" required value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t("emailPh")} />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Contraseña</Label>
-              <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder="••••••••" />
+              <Label htmlFor="password">{t("password")}</Label>
+              <Input id="password" type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)} placeholder={t("passwordPh")} />
             </div>
             <Button type="submit" disabled={loading} className="w-full glow-neon">
               <Flame className="h-4 w-4" />
-              {loading ? "..." : mode === "signin" ? "Entrar" : "Crear cuenta"}
+              {loading ? "..." : mode === "signin" ? t("signin") : t("signup")}
             </Button>
           </form>
 
           <div className="my-6 flex items-center gap-3">
             <div className="h-px flex-1 bg-border" />
-            <span className="text-xs uppercase tracking-wider text-muted-foreground">o</span>
+            <span className="text-xs uppercase tracking-wider text-muted-foreground">{t("or")}</span>
             <div className="h-px flex-1 bg-border" />
           </div>
 
           <Button type="button" variant="outline" onClick={handleGoogle} className="w-full">
             <svg className="h-4 w-4" viewBox="0 0 24 24"><path fill="currentColor" d="M21.35 11.1h-9.17v2.97h5.27c-.23 1.5-1.7 4.4-5.27 4.4-3.17 0-5.76-2.62-5.76-5.85S9 6.77 12.18 6.77c1.8 0 3.01.77 3.7 1.43l2.52-2.43C16.78 4.2 14.7 3.3 12.18 3.3 6.92 3.3 2.7 7.55 2.7 12.62c0 5.07 4.22 9.32 9.48 9.32 5.47 0 9.1-3.85 9.1-9.27 0-.62-.07-1.1-.18-1.57z"/></svg>
-            Continuar con Google
+            {t("continueGoogle")}
           </Button>
         </div>
       </div>
