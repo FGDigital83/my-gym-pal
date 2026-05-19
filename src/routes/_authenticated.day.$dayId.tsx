@@ -97,12 +97,9 @@ function DayPage() {
           <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">
             {(() => { const d = new Date(day.created_at); return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`; })()}
           </p>
-          <h1 className="text-3xl sm:text-4xl font-bold">{day.title}</h1>
-          <div className="flex flex-wrap gap-1.5 pt-2">
-            {day.muscles.map((m) => (
-              <span key={m} className="text-xs px-2.5 py-1 rounded-md bg-primary/15 text-primary font-medium">{m}</span>
-            ))}
-          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold leading-tight">
+            {day.muscles.length === 0 ? "Sin músculos" : day.muscles.join(" · ")}
+          </h1>
         </section>
       )}
 
