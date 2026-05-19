@@ -118,16 +118,9 @@ function PlanPage() {
                     <Calendar className="h-3.5 w-3.5" />
                     {(() => { const d = new Date(day.created_at); return `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`; })()}
                   </div>
-                  <h2 className="mt-1 text-xl font-bold truncate">{day.title}</h2>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {day.muscles.length === 0 ? (
-                      <span className="text-xs text-muted-foreground">Sin músculos asignados</span>
-                    ) : (
-                      day.muscles.map((m) => (
-                        <span key={m} className="text-xs px-2 py-1 rounded-md bg-muted text-muted-foreground">{m}</span>
-                      ))
-                    )}
-                  </div>
+                  <h2 className="mt-1 text-xl font-bold leading-tight">
+                    {day.muscles.length === 0 ? "Sin músculos" : day.muscles.join(" · ")}
+                  </h2>
                 </div>
                 <ChevronRight className="h-5 w-5 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition shrink-0" />
               </div>
