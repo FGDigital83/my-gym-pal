@@ -3,13 +3,25 @@
 //   - tanstackStart, viteReact, tailwindcss, tsConfigPaths, cloudflare (build-only),
 //     componentTagger (dev-only), VITE_* env injection, @ path alias, React/TanStack dedupe,
 //     error logger plugins, and sandbox detection (port/host/strictPort).
-// You can pass additional config via defineConfig({ vite: { ... } }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
-// Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
-// @cloudflare/vite-plugin builds from this — wrangler.jsonc main alone is insufficient.
-export default defineConfig({
-  tanstackStart: {
-    server: { entry: "server" },
-  },
-});
+// Set CAPACITOR=1 to build a fully static SPA bundle (with a real dist/index.html)
+// for Capacitor / Android. The default build keeps SSR on Cloudflare Workers.
+const isCapacitor = process.env.CAPACITOR === "1";
+
+export default isCapacitor
+  ? defineConfig({
+      // Disable the Cloudflare Worker output — Capacitor only needs static assets.
+      cloudflare: false,
+      tanstackStart: {
+        // SPA mode: prerender the root HTML shell and let the client router take over.
+        spa: { enabled: true },
+        pages: [{ path: "/", prerender: { enabled: true, crawlLinks: false } }],
+      },
+    })
+  : defineConfig({
+      // Default (Lovable Cloud / Workers) build keeps the SSR error wrapper.
+      tanstackStart: {
+        server: { entry: "server" },
+      },
+    });
