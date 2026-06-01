@@ -13,6 +13,7 @@ import { Route as LoginRouteImport } from './routes/login'
 import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated.plan'
+import { Route as AuthenticatedNutritionRouteImport } from './routes/_authenticated.nutrition'
 import { Route as AuthenticatedHealthRouteImport } from './routes/_authenticated.health'
 import { Route as AuthenticatedExerciseExerciseIdRouteImport } from './routes/_authenticated.exercise.$exerciseId'
 import { Route as AuthenticatedDayDayIdRouteImport } from './routes/_authenticated.day.$dayId'
@@ -36,6 +37,11 @@ const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
   path: '/plan',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedNutritionRoute = AuthenticatedNutritionRouteImport.update({
+  id: '/nutrition',
+  path: '/nutrition',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedHealthRoute = AuthenticatedHealthRouteImport.update({
   id: '/health',
   path: '/health',
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/health': typeof AuthenticatedHealthRoute
+  '/nutrition': typeof AuthenticatedNutritionRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/day/$dayId': typeof AuthenticatedDayDayIdRoute
   '/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
@@ -65,6 +72,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
   '/health': typeof AuthenticatedHealthRoute
+  '/nutrition': typeof AuthenticatedNutritionRoute
   '/plan': typeof AuthenticatedPlanRoute
   '/day/$dayId': typeof AuthenticatedDayDayIdRoute
   '/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
@@ -75,6 +83,7 @@ export interface FileRoutesById {
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
   '/_authenticated/health': typeof AuthenticatedHealthRoute
+  '/_authenticated/nutrition': typeof AuthenticatedNutritionRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
   '/_authenticated/day/$dayId': typeof AuthenticatedDayDayIdRoute
   '/_authenticated/exercise/$exerciseId': typeof AuthenticatedExerciseExerciseIdRoute
@@ -85,6 +94,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/health'
+    | '/nutrition'
     | '/plan'
     | '/day/$dayId'
     | '/exercise/$exerciseId'
@@ -93,6 +103,7 @@ export interface FileRouteTypes {
     | '/'
     | '/login'
     | '/health'
+    | '/nutrition'
     | '/plan'
     | '/day/$dayId'
     | '/exercise/$exerciseId'
@@ -102,6 +113,7 @@ export interface FileRouteTypes {
     | '/_authenticated'
     | '/login'
     | '/_authenticated/health'
+    | '/_authenticated/nutrition'
     | '/_authenticated/plan'
     | '/_authenticated/day/$dayId'
     | '/_authenticated/exercise/$exerciseId'
@@ -143,6 +155,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedPlanRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/nutrition': {
+      id: '/_authenticated/nutrition'
+      path: '/nutrition'
+      fullPath: '/nutrition'
+      preLoaderRoute: typeof AuthenticatedNutritionRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/health': {
       id: '/_authenticated/health'
       path: '/health'
@@ -169,6 +188,7 @@ declare module '@tanstack/react-router' {
 
 interface AuthenticatedRouteChildren {
   AuthenticatedHealthRoute: typeof AuthenticatedHealthRoute
+  AuthenticatedNutritionRoute: typeof AuthenticatedNutritionRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
   AuthenticatedDayDayIdRoute: typeof AuthenticatedDayDayIdRoute
   AuthenticatedExerciseExerciseIdRoute: typeof AuthenticatedExerciseExerciseIdRoute
@@ -176,6 +196,7 @@ interface AuthenticatedRouteChildren {
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
   AuthenticatedHealthRoute: AuthenticatedHealthRoute,
+  AuthenticatedNutritionRoute: AuthenticatedNutritionRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
   AuthenticatedDayDayIdRoute: AuthenticatedDayDayIdRoute,
   AuthenticatedExerciseExerciseIdRoute: AuthenticatedExerciseExerciseIdRoute,
@@ -193,3 +214,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
