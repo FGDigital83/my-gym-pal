@@ -43,10 +43,10 @@ function AuthLayout() {
             </Button>
           </div>
         </div>
-        <div className="max-w-3xl mx-auto px-4 pb-2 flex gap-2">
+        <div className="max-w-3xl mx-auto px-4 pb-2 flex gap-2 overflow-x-auto">
           <Link
             to="/plan"
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition border ${
+            className={`flex-1 min-w-fit flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium transition border ${
               onTraining ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary"
             }`}
           >
@@ -55,12 +55,21 @@ function AuthLayout() {
           </Link>
           <Link
             to="/health"
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition border ${
+            className={`flex-1 min-w-fit flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium transition border ${
               onHealth ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary"
             }`}
           >
             <HeartPulse className="h-4 w-4" />
             {t("health")}
+          </Link>
+          <Link
+            to="/nutrition"
+            className={`flex-1 min-w-fit flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium transition border ${
+              onNutrition ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary"
+            }`}
+          >
+            <Apple className="h-4 w-4" />
+            {t("nutrition")}
           </Link>
         </div>
       </header>
