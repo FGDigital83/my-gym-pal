@@ -50,6 +50,16 @@ type Dict = {
   name: string; namePh: string; emailPh: string; passwordPh: string;
   continueGoogle: string; or: string; loading: string;
   brandTag: string; accountCreated: string; errorGeneric: string; googleError: string;
+  // Optional (fall back to es)
+  forgotPassword?: string; resetEmailSent?: string; resetEmailPrompt?: string;
+  nutrition?: string; healthyFood?: string; calorieCounter?: string;
+  breakfast?: string; lunch?: string; snack?: string; dinner?: string;
+  goal?: string; goalCut?: string; goalBulk?: string; goalLose?: string; goalMaintain?: string;
+  activity?: string; act1?: string; act2?: string; act3?: string; act4?: string; act5?: string;
+  sex?: string; male?: string; female?: string;
+  targetWeight?: string; calculate?: string; yourPlan?: string;
+  dailyCalories?: string; protein?: string; carbs?: string; fats?: string;
+  mealsBreakdown?: string; tips?: string;
 };
 
 const T: Record<LangCode, Dict> = {
