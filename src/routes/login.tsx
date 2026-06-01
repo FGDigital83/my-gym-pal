@@ -65,6 +65,18 @@ function LoginPage() {
     if (result.error) toast.error(t("googleError"));
   };
 
+  const handleForgot = async () => {
+    if (!email) {
+      toast.error(t("resetEmailPrompt"));
+      return;
+    }
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: window.location.origin,
+    });
+    if (error) toast.error(error.message);
+    else toast.success(t("resetEmailSent"));
+  };
+
   return (
     <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12 relative">
       <div className="absolute top-4 right-4">
