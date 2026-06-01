@@ -23,7 +23,8 @@ function AuthLayout() {
     navigate({ to: "/login" });
   };
   const onHealth = path.startsWith("/health");
-  const onTraining = !onHealth;
+  const onNutrition = path.startsWith("/nutrition");
+  const onTraining = !onHealth && !onNutrition;
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b bg-background/80 backdrop-blur-xl">
