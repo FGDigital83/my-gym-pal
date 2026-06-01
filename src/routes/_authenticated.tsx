@@ -1,6 +1,6 @@
 import { createFileRoute, Outlet, redirect, Link, useNavigate, useRouterState } from "@tanstack/react-router";
 import { supabase } from "@/integrations/supabase/client";
-import { Dumbbell, LogOut, HeartPulse } from "lucide-react";
+import { Dumbbell, LogOut, HeartPulse, Apple } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
@@ -23,7 +23,8 @@ function AuthLayout() {
     navigate({ to: "/login" });
   };
   const onHealth = path.startsWith("/health");
-  const onTraining = !onHealth;
+  const onNutrition = path.startsWith("/nutrition");
+  const onTraining = !onHealth && !onNutrition;
   return (
     <div className="min-h-screen bg-background">
       <header className="sticky top-0 z-30 border-b bg-background/80 backdrop-blur-xl">
@@ -42,10 +43,10 @@ function AuthLayout() {
             </Button>
           </div>
         </div>
-        <div className="max-w-3xl mx-auto px-4 pb-2 flex gap-2">
+        <div className="max-w-3xl mx-auto px-4 pb-2 flex gap-2 overflow-x-auto">
           <Link
             to="/plan"
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition border ${
+            className={`flex-1 min-w-fit flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium transition border ${
               onTraining ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary"
             }`}
           >
@@ -54,12 +55,21 @@ function AuthLayout() {
           </Link>
           <Link
             to="/health"
-            className={`flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition border ${
+            className={`flex-1 min-w-fit flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium transition border ${
               onHealth ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary"
             }`}
           >
             <HeartPulse className="h-4 w-4" />
             {t("health")}
+          </Link>
+          <Link
+            to="/nutrition"
+            className={`flex-1 min-w-fit flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl text-xs sm:text-sm font-medium transition border ${
+              onNutrition ? "bg-primary text-primary-foreground border-primary" : "bg-card text-muted-foreground border-border hover:border-primary"
+            }`}
+          >
+            <Apple className="h-4 w-4" />
+            {t("nutrition")}
           </Link>
         </div>
       </header>
