@@ -126,6 +126,15 @@ function LoginPage() {
               <Flame className="h-4 w-4" />
               {loading ? "..." : mode === "signin" ? t("signin") : t("signup")}
             </Button>
+            {mode === "signin" && (
+              <button
+                type="button"
+                onClick={handleForgot}
+                className="block w-full text-center text-xs text-white/80 hover:text-white underline-offset-4 hover:underline"
+              >
+                {t("forgotPassword")}
+              </button>
+            )}
           </form>
 
           <div className="my-6 flex items-center gap-3">
