@@ -11,14 +11,13 @@ const isCapacitor = process.env.CAPACITOR === "1";
 
 export default isCapacitor
   ? defineConfig({
-      // Disable the Cloudflare Worker output — Capacitor only needs static assets.
-      cloudflare: false,
+      // SPA mode: prerender the root HTML shell and let the client router take over.
+      // (Cloudflare Worker output is skipped automatically when CAPACITOR=1.)
       tanstackStart: {
-        // SPA mode: prerender the root HTML shell and let the client router take over.
         spa: { enabled: true },
         pages: [{ path: "/", prerender: { enabled: true, crawlLinks: false } }],
       },
-    })
+    } as Parameters<typeof defineConfig>[0])
   : defineConfig({
       // Default (Lovable Cloud / Workers) build keeps the SSR error wrapper.
       tanstackStart: {
