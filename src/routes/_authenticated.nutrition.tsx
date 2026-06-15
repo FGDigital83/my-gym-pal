@@ -93,7 +93,7 @@ function NutritionPage() {
 function HealthyFood({ lang }: { lang: Lang6 }) {
   const [defaults] = useState<MealsState>(() => defaultMealsState());
   const [autos, setAutos] = useState<Record<MealKey, ItemState[]>>(() =>
-    Object.fromEntries(MEAL_KEYS.map((k) => [k, []])) as Record<MealKey, ItemState[]>,
+    Object.fromEntries(MEAL_KEYS.map((k) => [k, []])) as unknown as Record<MealKey, ItemState[]>,
   );
   const [meals, setMeals] = useState<MealsState>(() => defaultMealsState());
   const [prefs, setPrefs] = useState<PrefState>(emptyPrefs);
@@ -171,7 +171,7 @@ function HealthyFood({ lang }: { lang: Lang6 }) {
 
   const reset = () => {
     setMeals(defaultMealsState());
-    setAutos(Object.fromEntries(MEAL_KEYS.map((k) => [k, []])) as Record<MealKey, ItemState[]>);
+    setAutos(Object.fromEntries(MEAL_KEYS.map((k) => [k, []])) as unknown as Record<MealKey, ItemState[]>);
     setPrefs(emptyPrefs());
     setSelected(emptySelection());
   };
