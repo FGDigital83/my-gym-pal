@@ -54,7 +54,13 @@ function LoginPage() {
         if (error) throw error;
       }
     } catch (err) {
-      toast.error(err instanceof Error ? err.message : t("errorGeneric"));
+      const msg = err instanceof Error ? err.message : String(err);
+      const isNetwork = /failed to fetch|networkerror|load failed/i.test(msg);
+      toast.error(
+        isNetwork
+          ? "No se pudo conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo en unos segundos."
+          : msg || t("errorGeneric"),
+      );
     } finally {
       setLoading(false);
     }
