@@ -5,9 +5,9 @@
 Esta política explica qué datos recoge la aplicación **Training Plan** y cómo se usan.
 
 ## 1. Responsable del tratamiento
-*(Indica aquí tu nombre o empresa y email de contacto antes de publicar.)*
+Francisco Gomez
 
-- Email de contacto: *example@example.com*
+- Email de contacto: fgdigital26@gmail.com
 
 ## 2. Datos que recogemos
 
@@ -23,12 +23,12 @@ No recogemos: ubicación, contactos, fotos, micrófono, ni ningún otro dato del
 ## 3. Cómo se usan los datos
 Únicamente para ofrecerte la funcionalidad de la app:
 - Mostrar tu plan de entrenamiento en cualquier dispositivo donde inicies sesión.
-- Calcular y graficar tu IMC.
+- Calcular calorías, objetivos nutricionales, progreso físico y mostrar planes de entrenamiento personalizados.
 
 **No vendemos ni compartimos tus datos con terceros para publicidad.**
 
 ## 4. Almacenamiento y seguridad
-- Los datos se guardan en servidores de **Lovable Cloud / Supabase** (UE).
+- Los datos se guardan en servidores de **Supabase** (UE).
 - Comunicación cifrada (HTTPS / TLS).
 - Acceso restringido por **Row Level Security**: solo tú puedes ver tus propios datos.
 
