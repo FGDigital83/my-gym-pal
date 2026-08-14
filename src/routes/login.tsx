@@ -19,6 +19,23 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+async function checkBackendHealth(): Promise<boolean> {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  if (!url) return true;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(`${url}/auth/v1/health`, {
+      headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? "" },
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 function LoginPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
@@ -27,6 +44,16 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"checking" | "up" | "down">("checking");
+
+  const runHealthCheck = async () => {
+    setStatus("checking");
+    setStatus((await checkBackendHealth()) ? "up" : "down");
+  };
+
+  useEffect(() => {
+    void runHealthCheck();
+  }, []);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
