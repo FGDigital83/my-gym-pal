@@ -1,7 +1,6 @@
 export const MUSCLES = [
   "Pecho",
   "Espalda",
-  "Dorsales",
   "Hombro",
   "Bíceps",
   "Tríceps",
@@ -13,6 +12,7 @@ export const MUSCLES = [
   "Isquiotibiales",
   "Pantorrillas",
   "Cardio",
+  "Estiramientos",
 ] as const;
 
 export type Muscle = (typeof MUSCLES)[number];

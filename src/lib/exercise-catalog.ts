@@ -12,11 +12,11 @@ import cuadriceps from "@/assets/muscle-cuadriceps.jpg";
 import isquiotibiales from "@/assets/muscle-isquiotibiales.jpg";
 import pantorrillas from "@/assets/muscle-pantorrillas.jpg";
 import cardio from "@/assets/muscle-cardio.jpg";
+import estiramientos from "@/assets/muscle-estiramientos.jpg";
 
 export const MUSCLE_IMAGE: Record<Muscle, string> = {
   Pecho: pecho,
   Espalda: espalda,
-  Dorsales: espalda,
   Hombro: hombro,
   "Bíceps": biceps,
   "Tríceps": triceps,
@@ -28,6 +28,7 @@ export const MUSCLE_IMAGE: Record<Muscle, string> = {
   Isquiotibiales: isquiotibiales,
   Pantorrillas: pantorrillas,
   Cardio: cardio,
+  Estiramientos: estiramientos,
 };
 
 export type CatalogExercise = { name: string };
@@ -86,8 +87,6 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Encogimientos con mancuernas" },
     { name: "Rack pulls" },
     { name: "Superman" },
-  ],
-  Dorsales: [
     { name: "Dominadas pronas" },
     { name: "Dominadas supinas (chin up)" },
     { name: "Dominadas neutras" },
@@ -100,7 +99,6 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Jalón con cuerda" },
     { name: "Pullover con mancuerna" },
     { name: "Pullover en polea (straight arm)" },
-    { name: "Remo en T" },
     { name: "Remo Meadows" },
     { name: "Kroc rows" },
     { name: "Pull over en máquina" },
@@ -307,4 +305,57 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Mountain climbers" },
     { name: "Sled push" },
   ],
+  Estiramientos: [
+    { name: "Estiramiento de isquiotibiales de pie" },
+    { name: "Estiramiento de isquiotibiales sentado" },
+    { name: "Estiramiento de cuádriceps de pie" },
+    { name: "Estiramiento de flexores de cadera (zancada)" },
+    { name: "Estiramiento de glúteo (figura 4)" },
+    { name: "Estiramiento de piriforme tumbado" },
+    { name: "Estiramiento de aductores (mariposa)" },
+    { name: "Estiramiento de gemelos en pared" },
+    { name: "Estiramiento de sóleo" },
+    { name: "Estiramiento de pectoral en marco de puerta" },
+    { name: "Estiramiento de dorsales colgado en barra" },
+    { name: "Estiramiento de tríceps sobre cabeza" },
+    { name: "Estiramiento de hombro cruzado" },
+    { name: "Estiramiento de cuello lateral" },
+    { name: "Postura del niño (child pose)" },
+    { name: "Gato-camello (cat-cow)" },
+    { name: "Postura del perro boca abajo" },
+    { name: "Cobra (estiramiento lumbar)" },
+    { name: "Torsión espinal tumbado" },
+    { name: "Estiramiento de antebrazos y muñecas" },
+    { name: "Estiramiento de banda iliotibial" },
+    { name: "Movilidad de cadera 90/90" },
+  ],
 };
+
+/** Ejercicios recomendados por defecto al elegir un músculo en un día nuevo. */
+export const DEFAULT_PICKS: Partial<Record<Muscle, string[]>> = {
+  Pecho: ["Press de banca", "Press inclinado mancuernas", "Aperturas en máquina (peck deck)", "Cruce de poleas alto"],
+  Espalda: ["Dominadas pronas", "Remo con barra", "Jalón al pecho agarre ancho", "Remo en polea baja"],
+  Hombro: ["Press militar con barra de pie", "Elevaciones laterales con mancuernas", "Pájaros con mancuernas", "Face pull"],
+  "Bíceps": ["Curl con barra Z", "Curl martillo", "Curl predicador con barra", "Curl en polea baja"],
+  "Tríceps": ["Extensiones en polea con cuerda", "Press francés con barra", "Fondos en paralelas (tríceps)", "Patada de tríceps en polea"],
+  Antebrazos: ["Curl de muñeca con barra", "Curl invertido con barra", "Farmer walk", "Suspensión en barra (dead hang)"],
+  Abdominales: ["Crunch en polea", "Elevación de piernas colgado", "Crunch inverso", "Rueda abdominal (ab wheel)"],
+  Core: ["Plancha frontal", "Plancha lateral", "Pallof press", "Dead bug"],
+  "Glúteos": ["Hip thrust con barra", "Sentadilla búlgara", "Peso muerto rumano", "Abductor en máquina"],
+  "Cuádriceps": ["Sentadilla con barra", "Prensa de piernas", "Extensiones de cuádriceps", "Zancadas con mancuernas"],
+  Isquiotibiales: ["Peso muerto rumano", "Curl femoral tumbado", "Curl femoral sentado", "Buenos días con barra"],
+  Pantorrillas: ["Elevación de talones de pie en máquina", "Elevación de talones sentado", "Pantorrilla en prensa", "Donkey calf raise"],
+  Cardio: ["Cinta inclinada (caminata)", "Bicicleta estática", "Remo (rower)", "HIIT"],
+  Estiramientos: [
+    "Estiramiento de isquiotibiales de pie",
+    "Estiramiento de cuádriceps de pie",
+    "Estiramiento de pectoral en marco de puerta",
+    "Gato-camello (cat-cow)",
+  ],
+};
+
+export function defaultExercisesFor(muscle: Muscle): string[] {
+  const picks = DEFAULT_PICKS[muscle];
+  if (picks?.length) return picks;
+  return (EXERCISE_CATALOG[muscle] ?? []).slice(0, 4).map((e) => e.name);
+}
