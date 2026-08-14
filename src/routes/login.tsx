@@ -111,6 +111,34 @@ function LoginPage() {
     else toast.success(t("resetEmailSent"));
   };
 
+  if (status !== "up") {
+    return (
+      <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12 relative">
+        <div className="absolute top-4 right-4">
+          <LanguageSwitcher />
+        </div>
+        <div className="w-full max-w-md text-center">
+          <div className="mx-auto mb-6 h-12 w-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center glow-neon">
+            <Dumbbell className="h-6 w-6" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight mb-2">Training Plan</h1>
+          {status === "checking" ? (
+            <p className="text-sm text-muted-foreground">{t("checkingServer")}</p>
+          ) : (
+            <div className="rounded-2xl border bg-card p-6 shadow-2xl mt-4">
+              <h2 className="text-lg font-semibold mb-2">{t("maintenanceTitle")}</h2>
+              <p className="text-sm text-muted-foreground mb-6">{t("maintenanceBody")}</p>
+              <Button onClick={() => void runHealthCheck()} className="w-full glow-neon">
+                <RefreshCw className="h-4 w-4" />
+                {t("retry")}
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12 relative">
       <div className="absolute top-4 right-4">
