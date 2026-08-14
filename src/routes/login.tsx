@@ -83,6 +83,7 @@ function LoginPage() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       const isNetwork = /failed to fetch|networkerror|load failed/i.test(msg);
+      if (isNetwork) setStatus("down");
       toast.error(
         isNetwork
           ? "No se pudo conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo en unos segundos."
