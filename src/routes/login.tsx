@@ -5,7 +5,7 @@ import { lovable } from "@/integrations/lovable";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Dumbbell, Flame } from "lucide-react";
+import { Dumbbell, Flame, RefreshCw } from "lucide-react";
 import { toast } from "sonner";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useI18n } from "@/lib/i18n";
@@ -19,6 +19,23 @@ export const Route = createFileRoute("/login")({
   component: LoginPage,
 });
 
+async function checkBackendHealth(): Promise<boolean> {
+  const url = import.meta.env.VITE_SUPABASE_URL;
+  if (!url) return true;
+  try {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 8000);
+    const res = await fetch(`${url}/auth/v1/health`, {
+      headers: { apikey: import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY ?? "" },
+      signal: controller.signal,
+    });
+    clearTimeout(timer);
+    return res.ok;
+  } catch {
+    return false;
+  }
+}
+
 function LoginPage() {
   const { t } = useI18n();
   const navigate = useNavigate();
@@ -27,6 +44,16 @@ function LoginPage() {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState<"checking" | "up" | "down">("checking");
+
+  const runHealthCheck = async () => {
+    setStatus("checking");
+    setStatus((await checkBackendHealth()) ? "up" : "down");
+  };
+
+  useEffect(() => {
+    void runHealthCheck();
+  }, []);
 
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_e, session) => {
@@ -56,6 +83,7 @@ function LoginPage() {
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
       const isNetwork = /failed to fetch|networkerror|load failed/i.test(msg);
+      if (isNetwork) setStatus("down");
       toast.error(
         isNetwork
           ? "No se pudo conectar con el servidor. Comprueba tu conexión e inténtalo de nuevo en unos segundos."
@@ -82,6 +110,34 @@ function LoginPage() {
     if (error) toast.error(error.message);
     else toast.success(t("resetEmailSent"));
   };
+
+  if (status !== "up") {
+    return (
+      <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12 relative">
+        <div className="absolute top-4 right-4">
+          <LanguageSwitcher />
+        </div>
+        <div className="w-full max-w-md text-center">
+          <div className="mx-auto mb-6 h-12 w-12 rounded-2xl bg-primary text-primary-foreground flex items-center justify-center glow-neon">
+            <Dumbbell className="h-6 w-6" />
+          </div>
+          <h1 className="text-2xl font-bold tracking-tight mb-2">Training Plan</h1>
+          {status === "checking" ? (
+            <p className="text-sm text-muted-foreground">{t("checkingServer")}</p>
+          ) : (
+            <div className="rounded-2xl border bg-card p-6 shadow-2xl mt-4">
+              <h2 className="text-lg font-semibold mb-2">{t("maintenanceTitle")}</h2>
+              <p className="text-sm text-muted-foreground mb-6">{t("maintenanceBody")}</p>
+              <Button onClick={() => void runHealthCheck()} className="w-full glow-neon">
+                <RefreshCw className="h-4 w-4" />
+                {t("retry")}
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background bg-grid flex items-center justify-center px-4 py-12 relative">
