@@ -12,11 +12,11 @@ import cuadriceps from "@/assets/muscle-cuadriceps.jpg";
 import isquiotibiales from "@/assets/muscle-isquiotibiales.jpg";
 import pantorrillas from "@/assets/muscle-pantorrillas.jpg";
 import cardio from "@/assets/muscle-cardio.jpg";
+import estiramientos from "@/assets/muscle-estiramientos.jpg";
 
 export const MUSCLE_IMAGE: Record<Muscle, string> = {
   Pecho: pecho,
   Espalda: espalda,
-  Dorsales: espalda,
   Hombro: hombro,
   "Bíceps": biceps,
   "Tríceps": triceps,
@@ -28,6 +28,7 @@ export const MUSCLE_IMAGE: Record<Muscle, string> = {
   Isquiotibiales: isquiotibiales,
   Pantorrillas: pantorrillas,
   Cardio: cardio,
+  Estiramientos: estiramientos,
 };
 
 export type CatalogExercise = { name: string };
@@ -86,8 +87,6 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Encogimientos con mancuernas" },
     { name: "Rack pulls" },
     { name: "Superman" },
-  ],
-  Dorsales: [
     { name: "Dominadas pronas" },
     { name: "Dominadas supinas (chin up)" },
     { name: "Dominadas neutras" },
@@ -100,7 +99,6 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Jalón con cuerda" },
     { name: "Pullover con mancuerna" },
     { name: "Pullover en polea (straight arm)" },
-    { name: "Remo en T" },
     { name: "Remo Meadows" },
     { name: "Kroc rows" },
     { name: "Pull over en máquina" },
@@ -306,5 +304,29 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Box jumps" },
     { name: "Mountain climbers" },
     { name: "Sled push" },
+  ],
+  Estiramientos: [
+    { name: "Estiramiento de isquiotibiales de pie" },
+    { name: "Estiramiento de isquiotibiales sentado" },
+    { name: "Estiramiento de cuádriceps de pie" },
+    { name: "Estiramiento de flexores de cadera (zancada)" },
+    { name: "Estiramiento de glúteo (figura 4)" },
+    { name: "Estiramiento de piriforme tumbado" },
+    { name: "Estiramiento de aductores (mariposa)" },
+    { name: "Estiramiento de gemelos en pared" },
+    { name: "Estiramiento de sóleo" },
+    { name: "Estiramiento de pectoral en marco de puerta" },
+    { name: "Estiramiento de dorsales colgado en barra" },
+    { name: "Estiramiento de tríceps sobre cabeza" },
+    { name: "Estiramiento de hombro cruzado" },
+    { name: "Estiramiento de cuello lateral" },
+    { name: "Postura del niño (child pose)" },
+    { name: "Gato-camello (cat-cow)" },
+    { name: "Postura del perro boca abajo" },
+    { name: "Cobra (estiramiento lumbar)" },
+    { name: "Torsión espinal tumbado" },
+    { name: "Estiramiento de antebrazos y muñecas" },
+    { name: "Estiramiento de banda iliotibial" },
+    { name: "Movilidad de cadera 90/90" },
   ],
 };
