@@ -60,6 +60,7 @@ type Dict = {
   targetWeight?: string; calculate?: string; yourPlan?: string;
   dailyCalories?: string; protein?: string; carbs?: string; fats?: string;
   mealsBreakdown?: string; tips?: string;
+  maintenanceTitle?: string; maintenanceBody?: string; retry?: string; checkingServer?: string;
 };
 
 const T: Record<LangCode, Dict> = {
