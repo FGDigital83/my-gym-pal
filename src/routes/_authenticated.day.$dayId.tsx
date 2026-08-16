@@ -233,31 +233,41 @@ function DayPage() {
                     {items.map((ex) => {
                       const added = addedNames.has(ex.name);
                       return (
-                        <button
+                        <div
                           key={ex.name}
-                          type="button"
-                          onClick={() => addExercise.mutate({ name: ex.name, muscle: m })}
-                          disabled={added || addExercise.isPending}
-                          className={`flex items-center gap-3 rounded-xl border p-2.5 text-left transition ${
-                            added
-                              ? "border-primary/40 bg-primary/10 opacity-60"
-                              : "bg-card border-border hover:border-primary"
+                          className={`flex items-center gap-3 rounded-xl border p-2.5 transition ${
+                            added ? "border-primary/40 bg-primary/10" : "bg-card border-border hover:border-primary"
                           }`}
                         >
-                          <div className="h-12 w-12 rounded-lg overflow-hidden bg-muted shrink-0">
-                            {img && (
-                              <img src={img} alt="" loading="lazy" width={48} height={48} className="h-full w-full object-cover" />
+                          <button
+                            type="button"
+                            onClick={() => addExercise.mutate({ name: ex.name, muscle: m })}
+                            disabled={added || addExercise.isPending}
+                            className="flex flex-1 min-w-0 items-center gap-3 text-left disabled:opacity-60"
+                          >
+                            <div className="h-12 w-12 rounded-lg overflow-hidden bg-muted shrink-0">
+                              {img && (
+                                <img src={img} alt="" loading="lazy" width={48} height={48} className="h-full w-full object-cover" />
+                              )}
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <div className="font-semibold text-sm truncate">{ex.name}</div>
+                            </div>
+                            {added ? (
+                              <Check className="h-4 w-4 text-primary shrink-0" />
+                            ) : (
+                              <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
                             )}
-                          </div>
-                          <div className="flex-1 min-w-0">
-                            <div className="font-semibold text-sm truncate">{ex.name}</div>
-                          </div>
-                          {added ? (
-                            <Check className="h-4 w-4 text-primary shrink-0" />
-                          ) : (
-                            <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
-                          )}
-                        </button>
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setVideoName(ex.name)}
+                            className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 shrink-0"
+                            aria-label={`Ver vídeo de ${ex.name}`}
+                          >
+                            <Play className="h-4 w-4" />
+                          </button>
+                        </div>
                       );
                     })}
                   </div>
