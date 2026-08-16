@@ -8,7 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useState } from "react";
 import { toast } from "sonner";
-import { MUSCLES } from "@/lib/muscles";
+import { MUSCLES, type Muscle } from "@/lib/muscles";
+import { defaultExercisesFor } from "@/lib/exercise-catalog";
+import { TrainingTabs } from "@/components/TrainingTabs";
 
 export const Route = createFileRoute("/_authenticated/plan")({
   component: PlanPage,
@@ -41,13 +43,26 @@ function PlanPage() {
       const next = ((days?.[0]?.day_number) ?? 0) + 1;
       const d = new Date();
       const today = `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`;
-      const { error } = await supabase.from("workout_days").insert({
-        user_id: u.user.id,
-        day_number: next,
-        title: title.trim() || today,
-        muscles: selected,
-      });
+      const { data: created, error } = await supabase
+        .from("workout_days")
+        .insert({
+          user_id: u.user.id,
+          day_number: next,
+          title: title.trim() || today,
+          muscles: selected,
+        })
+        .select("id")
+        .single();
       if (error) throw error;
+      // Ejercicios recomendados automáticamente para cada músculo elegido
+      const rows: { day_id: string; user_id: string; name: string; muscle: string; position: number }[] = [];
+      let pos = 1;
+      for (const m of selected) {
+        for (const name of defaultExercisesFor(m as Muscle)) {
+          rows.push({ day_id: created.id, user_id: u.user.id, name, muscle: m, position: pos++ });
+        }
+      }
+      if (rows.length) await supabase.from("exercises").insert(rows);
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["workout_days"] });
@@ -80,6 +95,7 @@ function PlanPage() {
 
   return (
     <div className="space-y-6">
+      <TrainingTabs />
       <section className="space-y-1">
         <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Tu rutina</p>
         <h1 className="text-3xl sm:text-4xl font-bold">Plan semanal</h1>
