@@ -15,6 +15,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated.plan'
 import { Route as AuthenticatedNutritionRouteImport } from './routes/_authenticated.nutrition'
 import { Route as AuthenticatedHealthRouteImport } from './routes/_authenticated.health'
+import { Route as AuthenticatedAiRoutineRouteImport } from './routes/_authenticated.ai-routine'
 import { Route as AuthenticatedExerciseExerciseIdRouteImport } from './routes/_authenticated.exercise.$exerciseId'
 import { Route as AuthenticatedDayDayIdRouteImport } from './routes/_authenticated.day.$dayId'
 
@@ -47,6 +48,11 @@ const AuthenticatedHealthRoute = AuthenticatedHealthRouteImport.update({
   path: '/health',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
+const AuthenticatedAiRoutineRoute = AuthenticatedAiRoutineRouteImport.update({
+  id: '/ai-routine',
+  path: '/ai-routine',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 const AuthenticatedExerciseExerciseIdRoute =
   AuthenticatedExerciseExerciseIdRouteImport.update({
     id: '/exercise/$exerciseId',
@@ -62,6 +68,7 @@ const AuthenticatedDayDayIdRoute = AuthenticatedDayDayIdRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/ai-routine': typeof AuthenticatedAiRoutineRoute
   '/health': typeof AuthenticatedHealthRoute
   '/nutrition': typeof AuthenticatedNutritionRoute
   '/plan': typeof AuthenticatedPlanRoute
@@ -71,6 +78,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/login': typeof LoginRoute
+  '/ai-routine': typeof AuthenticatedAiRoutineRoute
   '/health': typeof AuthenticatedHealthRoute
   '/nutrition': typeof AuthenticatedNutritionRoute
   '/plan': typeof AuthenticatedPlanRoute
@@ -82,6 +90,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_authenticated': typeof AuthenticatedRouteWithChildren
   '/login': typeof LoginRoute
+  '/_authenticated/ai-routine': typeof AuthenticatedAiRoutineRoute
   '/_authenticated/health': typeof AuthenticatedHealthRoute
   '/_authenticated/nutrition': typeof AuthenticatedNutritionRoute
   '/_authenticated/plan': typeof AuthenticatedPlanRoute
@@ -93,6 +102,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/login'
+    | '/ai-routine'
     | '/health'
     | '/nutrition'
     | '/plan'
@@ -102,6 +112,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/login'
+    | '/ai-routine'
     | '/health'
     | '/nutrition'
     | '/plan'
@@ -112,6 +123,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_authenticated'
     | '/login'
+    | '/_authenticated/ai-routine'
     | '/_authenticated/health'
     | '/_authenticated/nutrition'
     | '/_authenticated/plan'
@@ -169,6 +181,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedHealthRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
+    '/_authenticated/ai-routine': {
+      id: '/_authenticated/ai-routine'
+      path: '/ai-routine'
+      fullPath: '/ai-routine'
+      preLoaderRoute: typeof AuthenticatedAiRoutineRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
     '/_authenticated/exercise/$exerciseId': {
       id: '/_authenticated/exercise/$exerciseId'
       path: '/exercise/$exerciseId'
@@ -187,6 +206,7 @@ declare module '@tanstack/react-router' {
 }
 
 interface AuthenticatedRouteChildren {
+  AuthenticatedAiRoutineRoute: typeof AuthenticatedAiRoutineRoute
   AuthenticatedHealthRoute: typeof AuthenticatedHealthRoute
   AuthenticatedNutritionRoute: typeof AuthenticatedNutritionRoute
   AuthenticatedPlanRoute: typeof AuthenticatedPlanRoute
@@ -195,6 +215,7 @@ interface AuthenticatedRouteChildren {
 }
 
 const AuthenticatedRouteChildren: AuthenticatedRouteChildren = {
+  AuthenticatedAiRoutineRoute: AuthenticatedAiRoutineRoute,
   AuthenticatedHealthRoute: AuthenticatedHealthRoute,
   AuthenticatedNutritionRoute: AuthenticatedNutritionRoute,
   AuthenticatedPlanRoute: AuthenticatedPlanRoute,
