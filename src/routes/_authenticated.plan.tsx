@@ -8,7 +8,9 @@ import { Label } from "@/components/ui/label";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useState } from "react";
 import { toast } from "sonner";
-import { MUSCLES } from "@/lib/muscles";
+import { MUSCLES, type Muscle } from "@/lib/muscles";
+import { defaultExercisesFor } from "@/lib/exercise-catalog";
+import { TrainingTabs } from "@/components/TrainingTabs";
 
 export const Route = createFileRoute("/_authenticated/plan")({
   component: PlanPage,
