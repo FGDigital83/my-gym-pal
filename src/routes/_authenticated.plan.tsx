@@ -95,6 +95,7 @@ function PlanPage() {
 
   return (
     <div className="space-y-6">
+      <TrainingTabs />
       <section className="space-y-1">
         <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Tu rutina</p>
         <h1 className="text-3xl sm:text-4xl font-bold">Plan semanal</h1>
