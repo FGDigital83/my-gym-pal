@@ -41,13 +41,26 @@ function PlanPage() {
       const next = ((days?.[0]?.day_number) ?? 0) + 1;
       const d = new Date();
       const today = `${String(d.getDate()).padStart(2, "0")}/${String(d.getMonth() + 1).padStart(2, "0")}/${String(d.getFullYear()).slice(-2)}`;
-      const { error } = await supabase.from("workout_days").insert({
-        user_id: u.user.id,
-        day_number: next,
-        title: title.trim() || today,
-        muscles: selected,
-      });
+      const { data: created, error } = await supabase
+        .from("workout_days")
+        .insert({
+          user_id: u.user.id,
+          day_number: next,
+          title: title.trim() || today,
+          muscles: selected,
+        })
+        .select("id")
+        .single();
       if (error) throw error;
+      // Ejercicios recomendados automáticamente para cada músculo elegido
+      const rows: { day_id: string; user_id: string; name: string; muscle: string; position: number }[] = [];
+      let pos = 1;
+      for (const m of selected) {
+        for (const name of defaultExercisesFor(m as Muscle)) {
+          rows.push({ day_id: created.id, user_id: u.user.id, name, muscle: m, position: pos++ });
+        }
+      }
+      if (rows.length) await supabase.from("exercises").insert(rows);
     },
     onSuccess: () => {
       qc.invalidateQueries({ queryKey: ["workout_days"] });
