@@ -1,13 +1,14 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { ArrowLeft, ChevronRight, Plus, Trash2, Check } from "lucide-react";
+import { ArrowLeft, ChevronRight, Plus, Trash2, Check, Play, Repeat } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { toast } from "sonner";
 import { EXERCISE_CATALOG, MUSCLE_IMAGE } from "@/lib/exercise-catalog";
+import { ExerciseVideoDialog } from "@/components/ExerciseVideoDialog";
 import type { Muscle } from "@/lib/muscles";
 
 export const Route = createFileRoute("/_authenticated/day/$dayId")({
@@ -23,6 +24,8 @@ function DayPage() {
   const [open, setOpen] = useState(false);
   const [customFor, setCustomFor] = useState<Muscle | null>(null);
   const [customName, setCustomName] = useState("");
+  const [videoName, setVideoName] = useState<string | null>(null);
+  const [swapTarget, setSwapTarget] = useState<Exercise | null>(null);
 
   const { data: day } = useQuery({
     queryKey: ["day", dayId],
@@ -81,6 +84,19 @@ function DayPage() {
       qc.invalidateQueries({ queryKey: ["exercises", dayId] });
       toast.success("Ejercicio eliminado");
     },
+  });
+
+  const renameExercise = useMutation({
+    mutationFn: async (payload: { id: string; name: string }) => {
+      const { error } = await supabase.from("exercises").update({ name: payload.name }).eq("id", payload.id);
+      if (error) throw error;
+    },
+    onSuccess: () => {
+      qc.invalidateQueries({ queryKey: ["exercises", dayId] });
+      setSwapTarget(null);
+      toast.success("Ejercicio cambiado");
+    },
+    onError: (e) => toast.error(e instanceof Error ? e.message : "Error"),
   });
 
   const addedNames = new Set(exercises?.map((e) => e.name) ?? []);
@@ -151,6 +167,22 @@ function DayPage() {
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
               </Link>
+              <div className="absolute bottom-2 right-2 flex items-center gap-1">
+                <button
+                  onClick={(e) => { e.preventDefault(); setVideoName(ex.name); }}
+                  className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  aria-label="Ver vídeo"
+                >
+                  <Play className="h-3.5 w-3.5" />
+                </button>
+                <button
+                  onClick={(e) => { e.preventDefault(); setSwapTarget(ex); }}
+                  className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10"
+                  aria-label="Cambiar ejercicio"
+                >
+                  <Repeat className="h-3.5 w-3.5" />
+                </button>
+              </div>
               <button
                 onClick={(e) => {
                   e.preventDefault();
@@ -277,6 +309,43 @@ function DayPage() {
           </div>
         </DialogContent>
       </Dialog>
+
+      <Dialog open={!!swapTarget} onOpenChange={(v) => !v && setSwapTarget(null)}>
+        <DialogContent className="max-h-[85vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Cambiar ejercicio</DialogTitle>
+          </DialogHeader>
+          <div className="grid grid-cols-1 gap-2">
+            {(EXERCISE_CATALOG[(swapTarget?.muscle ?? "Pecho") as Muscle] ?? []).map((alt) => (
+              <div
+                key={alt.name}
+                className={`flex items-center gap-3 rounded-xl border p-2.5 transition ${
+                  alt.name === swapTarget?.name ? "border-primary/40 bg-primary/10" : "bg-card border-border hover:border-primary"
+                }`}
+              >
+                <button
+                  type="button"
+                  className="flex-1 min-w-0 text-left font-semibold text-sm truncate disabled:opacity-60"
+                  disabled={alt.name === swapTarget?.name || addedNames.has(alt.name) || renameExercise.isPending}
+                  onClick={() => swapTarget && renameExercise.mutate({ id: swapTarget.id, name: alt.name })}
+                >
+                  {alt.name}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setVideoName(alt.name)}
+                  className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 shrink-0"
+                  aria-label={`Ver vídeo de ${alt.name}`}
+                >
+                  <Play className="h-4 w-4" />
+                </button>
+              </div>
+            ))}
+          </div>
+        </DialogContent>
+      </Dialog>
+
+      <ExerciseVideoDialog name={videoName} open={!!videoName} onOpenChange={(v) => !v && setVideoName(null)} />
     </div>
   );
 }
