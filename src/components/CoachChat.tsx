@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { chatWithCoach, type CoachMessage } from "@/lib/ai-routine.functions";
 import { useI18n } from "@/lib/i18n";
+import ReactMarkdown from "react-markdown";
 
 const SUGGESTIONS = [
   "¿Qué ejercicios me recomiendas hoy para pecho y por qué?",
@@ -60,13 +61,13 @@ export function CoachChat({ context }: { context?: string }) {
         {messages.map((m, i) => (
           <div
             key={i}
-            className={`rounded-xl px-3 py-2 text-sm leading-relaxed whitespace-pre-wrap ${
+            className={`rounded-xl px-3 py-2 text-sm leading-relaxed ${
               m.role === "user"
-                ? "bg-primary/10 border border-primary/30 ml-8"
-                : "bg-muted/40 border border-border mr-8"
+                ? "bg-primary/10 border border-primary/30 ml-8 whitespace-pre-wrap"
+                : "bg-muted/40 border border-border mr-8 prose prose-sm prose-invert max-w-none prose-headings:text-foreground prose-strong:text-foreground"
             }`}
           >
-            {m.content}
+            {m.role === "user" ? m.content : <ReactMarkdown>{m.content}</ReactMarkdown>}
           </div>
         ))}
         {mutation.isPending && (
