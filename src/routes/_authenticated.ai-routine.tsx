@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { TrainingTabs } from "@/components/TrainingTabs";
+import { CoachChat } from "@/components/CoachChat";
 import { generateAiRoutine } from "@/lib/ai-routine.functions";
 import { useI18n } from "@/lib/i18n";
 import { MUSCLES } from "@/lib/muscles";
@@ -145,6 +146,11 @@ function AiRoutinePage() {
           {result}
         </article>
       )}
+
+      <CoachChat
+        context={`Objetivo: ${goal}. Nivel: ${level}. Lugar: ${place}. Tiempo por sesión: ${time}. Días por semana: ${days}. Músculos prioritarios: ${focus.join(", ") || "ninguno"}. Limitaciones: ${limits || "ninguna"}.`}
+      />
     </div>
   );
 }
+
