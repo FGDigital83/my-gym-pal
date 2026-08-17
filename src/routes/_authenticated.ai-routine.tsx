@@ -145,6 +145,11 @@ function AiRoutinePage() {
           {result}
         </article>
       )}
+
+      <CoachChat
+        context={`Objetivo: ${goal}. Nivel: ${level}. Lugar: ${place}. Tiempo por sesión: ${time}. Días por semana: ${days}. Músculos prioritarios: ${focus.join(", ") || "ninguno"}. Limitaciones: ${limits || "ninguna"}.`}
+      />
     </div>
   );
 }
+
