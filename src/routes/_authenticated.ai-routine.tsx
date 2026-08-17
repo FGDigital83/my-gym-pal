@@ -9,6 +9,7 @@ import { Sparkles, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { TrainingTabs } from "@/components/TrainingTabs";
 import { CoachChat } from "@/components/CoachChat";
+import ReactMarkdown from "react-markdown";
 import { generateAiRoutine } from "@/lib/ai-routine.functions";
 import { useI18n } from "@/lib/i18n";
 import { MUSCLES } from "@/lib/muscles";
@@ -142,8 +143,8 @@ function AiRoutinePage() {
       </div>
 
       {result && (
-        <article className="rounded-2xl border bg-card p-5 whitespace-pre-wrap text-sm leading-relaxed">
-          {result}
+        <article className="rounded-2xl border bg-card p-5 text-sm leading-relaxed prose prose-sm prose-invert max-w-none prose-headings:text-foreground prose-strong:text-foreground">
+          <ReactMarkdown>{result}</ReactMarkdown>
         </article>
       )}
 
