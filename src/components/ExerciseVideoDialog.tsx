@@ -1,57 +1,43 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { useQuery } from "@tanstack/react-query";
-import { useServerFn } from "@tanstack/react-start";
-import { findExerciseVideo } from "@/lib/video.functions";
-import { ExternalLink } from "lucide-react";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { exerciseImageFor, exerciseVideoFor } from "@/lib/exercise-media";
+import { Bot } from "lucide-react";
+import type { Muscle } from "@/lib/muscles";
 
 export function ExerciseVideoDialog({
   name,
+  muscle,
   open,
   onOpenChange,
 }: {
   name: string | null;
+  muscle?: Muscle | null;
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const search = useServerFn(findExerciseVideo);
-  const { data, isLoading } = useQuery({
-    queryKey: ["exercise-video", name],
-    enabled: open && !!name,
-    staleTime: 1000 * 60 * 60 * 24,
-    queryFn: () => search({ data: { query: name as string } }),
-  });
+  const video = name ? exerciseVideoFor(name) : null;
+  const image = name ? exerciseImageFor(name, muscle) : null;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl">
         <DialogHeader>
           <DialogTitle className="text-base">{name}</DialogTitle>
+          <DialogDescription className="flex items-center gap-1.5">
+            <Bot className="h-4 w-4 text-primary" /> Demostración creada con IA, sin personas reales
+          </DialogDescription>
         </DialogHeader>
-        <div className="aspect-video w-full rounded-xl overflow-hidden bg-muted flex items-center justify-center">
-          {isLoading && <span className="text-sm text-muted-foreground">Cargando vídeo…</span>}
-          {!isLoading && data?.videoId && (
-            <iframe
-              className="h-full w-full"
-              src={`https://www.youtube.com/embed/${data.videoId}?autoplay=1&mute=1&loop=1&playlist=${data.videoId}`}
-              title={name ?? "Vídeo del ejercicio"}
-              allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-            />
-          )}
-          {!isLoading && !data?.videoId && (
-            <span className="text-sm text-muted-foreground px-4 text-center">
-              No se ha podido cargar el vídeo. Ábrelo en YouTube.
-            </span>
-          )}
+        <div className="aspect-video w-full overflow-hidden rounded-lg bg-muted flex items-center justify-center">
+          {video ? (
+            <video className="h-full w-full object-cover" src={video} autoPlay muted loop playsInline controls aria-label={`Demostración IA de ${name ?? "ejercicio"}`} />
+          ) : image ? (
+            <div className="relative h-full w-full">
+              <img src={image} alt={`Zona muscular trabajada en ${name ?? "el ejercicio"}`} className="h-full w-full object-cover opacity-70" />
+              <div className="absolute inset-x-0 bottom-0 bg-background/90 p-4 text-center text-sm text-muted-foreground">
+                El vídeo IA específico de este ejercicio se añadirá próximamente.
+              </div>
+            </div>
+          ) : null}
         </div>
-        <a
-          href={`https://www.youtube.com/results?search_query=${encodeURIComponent(`${name ?? ""} ejercicio técnica`)}`}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1.5 text-sm text-primary hover:underline"
-        >
-          <ExternalLink className="h-3.5 w-3.5" /> Ver en YouTube
-        </a>
       </DialogContent>
     </Dialog>
   );
