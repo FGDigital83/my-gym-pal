@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { toast } from "sonner";
 import { EXERCISE_CATALOG, MUSCLE_IMAGE } from "@/lib/exercise-catalog";
+import { exerciseImageFor } from "@/lib/exercise-media";
 import { ExerciseVideoDialog } from "@/components/ExerciseVideoDialog";
 import type { Muscle } from "@/lib/muscles";
 
@@ -146,7 +147,8 @@ function DayPage() {
 
       <div className="space-y-2">
         {exercises?.map((ex, idx) => {
-          const img = ex.muscle ? MUSCLE_IMAGE[ex.muscle as Muscle] : undefined;
+          const muscle = ex.muscle as Muscle | null;
+          const img = exerciseImageFor(ex.name, muscle);
           return (
             <div key={ex.id} className="relative group">
               <Link
@@ -155,44 +157,23 @@ function DayPage() {
                 className="flex items-center gap-3 rounded-xl border bg-card p-3 transition hover:border-primary"
               >
                 <div className="h-14 w-14 rounded-lg overflow-hidden bg-muted flex items-center justify-center shrink-0">
-                  {img ? (
-                    <img src={img} alt={ex.muscle ?? ""} loading="lazy" width={56} height={56} className="h-full w-full object-cover" />
-                  ) : (
-                    <span className="font-bold text-primary text-sm">{String(idx + 1).padStart(2, "0")}</span>
-                  )}
+                  <img src={img} alt={`Zona trabajada en ${ex.name}`} loading="lazy" width={56} height={56} className="h-full w-full object-cover" />
                 </div>
                 <div className="flex-1 min-w-0 pr-8">
-                  <div className="font-semibold truncate">{ex.name}</div>
+                  <div className="font-semibold truncate">{idx + 1}. {ex.name}</div>
                   {ex.muscle && <div className="text-xs text-muted-foreground">{ex.muscle}</div>}
                 </div>
                 <ChevronRight className="h-4 w-4 text-muted-foreground group-hover:text-primary" />
               </Link>
               <div className="absolute bottom-2 right-2 flex items-center gap-1">
-                <button
-                  onClick={(e) => { e.preventDefault(); setVideoName(ex.name); }}
-                  className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10"
-                  aria-label="Ver vídeo"
-                >
-                  <Play className="h-3.5 w-3.5" />
-                </button>
-                <button
-                  onClick={(e) => { e.preventDefault(); setSwapTarget(ex); }}
-                  className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10"
-                  aria-label="Cambiar ejercicio"
-                >
-                  <Repeat className="h-3.5 w-3.5" />
-                </button>
+                <button onClick={(e) => { e.preventDefault(); setVideoName(ex.name); }} className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10" aria-label="Ver vídeo IA"><Play className="h-3.5 w-3.5" /></button>
+                <button onClick={(e) => { e.preventDefault(); setSwapTarget(ex); }} className="p-1.5 rounded-md text-muted-foreground hover:text-primary hover:bg-primary/10" aria-label="Cambiar ejercicio"><Repeat className="h-3.5 w-3.5" /></button>
               </div>
               <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (confirm(`¿Eliminar "${ex.name}"?`)) deleteExercise.mutate(ex.id);
-                }}
+                onClick={(e) => { e.preventDefault(); if (confirm(`¿Eliminar "${ex.name}"?`)) deleteExercise.mutate(ex.id); }}
                 className="absolute top-2 right-2 p-1.5 rounded-md text-muted-foreground hover:text-destructive hover:bg-destructive/10 opacity-0 group-hover:opacity-100 transition"
                 aria-label="Eliminar"
-              >
-                <Trash2 className="h-3.5 w-3.5" />
-              </button>
+              ><Trash2 className="h-3.5 w-3.5" /></button>
             </div>
           );
         })}
@@ -264,41 +245,15 @@ function DayPage() {
                   <div className="grid grid-cols-1 gap-2">
                     {items.map((ex) => {
                       const added = addedNames.has(ex.name);
+                      const exerciseImage = exerciseImageFor(ex.name, m);
                       return (
-                        <div
-                          key={ex.name}
-                          className={`flex items-center gap-3 rounded-xl border p-2.5 transition ${
-                            added ? "border-primary/40 bg-primary/10" : "bg-card border-border hover:border-primary"
-                          }`}
-                        >
-                          <button
-                            type="button"
-                            onClick={() => addExercise.mutate({ name: ex.name, muscle: m })}
-                            disabled={added || addExercise.isPending}
-                            className="flex flex-1 min-w-0 items-center gap-3 text-left disabled:opacity-60"
-                          >
-                            <div className="h-12 w-12 rounded-lg overflow-hidden bg-muted shrink-0">
-                              {img && (
-                                <img src={img} alt="" loading="lazy" width={48} height={48} className="h-full w-full object-cover" />
-                              )}
-                            </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="font-semibold text-sm truncate">{ex.name}</div>
-                            </div>
-                            {added ? (
-                              <Check className="h-4 w-4 text-primary shrink-0" />
-                            ) : (
-                              <Plus className="h-4 w-4 text-muted-foreground shrink-0" />
-                            )}
+                        <div key={ex.name} className={`flex items-center gap-3 rounded-xl border p-2.5 transition ${added ? "border-primary/40 bg-primary/10" : "bg-card border-border hover:border-primary"}`}>
+                          <button type="button" onClick={() => addExercise.mutate({ name: ex.name, muscle: m })} disabled={added || addExercise.isPending} className="flex flex-1 min-w-0 items-center gap-3 text-left disabled:opacity-60">
+                            <div className="h-12 w-12 rounded-lg overflow-hidden bg-muted shrink-0"><img src={exerciseImage} alt={`Zona trabajada en ${ex.name}`} loading="lazy" width={48} height={48} className="h-full w-full object-cover" /></div>
+                            <div className="flex-1 min-w-0"><div className="font-semibold text-sm truncate">{ex.name}</div></div>
+                            {added ? <Check className="h-4 w-4 text-primary shrink-0" /> : <Plus className="h-4 w-4 text-muted-foreground shrink-0" />}
                           </button>
-                          <button
-                            type="button"
-                            onClick={() => setVideoName(ex.name)}
-                            className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 shrink-0"
-                            aria-label={`Ver vídeo de ${ex.name}`}
-                          >
-                            <Play className="h-4 w-4" />
-                          </button>
+                          <button type="button" onClick={() => setVideoName(ex.name)} className="p-2 rounded-lg text-muted-foreground hover:text-primary hover:bg-primary/10 shrink-0" aria-label={`Ver vídeo IA de ${ex.name}`}><Play className="h-4 w-4" /></button>
                         </div>
                       );
                     })}
@@ -345,7 +300,7 @@ function DayPage() {
         </DialogContent>
       </Dialog>
 
-      <ExerciseVideoDialog name={videoName} open={!!videoName} onOpenChange={(v) => !v && setVideoName(null)} />
+      <ExerciseVideoDialog name={videoName} muscle={(exercises?.find((exercise) => exercise.name === videoName)?.muscle ?? swapTarget?.muscle) as Muscle | null} open={!!videoName} onOpenChange={(v) => !v && setVideoName(null)} />
     </div>
   );
 }
