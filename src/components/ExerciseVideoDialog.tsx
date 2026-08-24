@@ -14,7 +14,7 @@ export function ExerciseVideoDialog({
   open: boolean;
   onOpenChange: (v: boolean) => void;
 }) {
-  const video = name ? exerciseVideoFor(name) : null;
+  const video = name ? exerciseVideoFor(name, muscle) : null;
   const image = name ? exerciseImageFor(name, muscle) : null;
 
   return (
