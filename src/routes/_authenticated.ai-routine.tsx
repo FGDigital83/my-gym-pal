@@ -112,7 +112,7 @@ function AiRoutinePage() {
           })}
         </div>
       </section>)}
-      <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border p-4"><h3 className="font-bold">Progresión</h3><p className="mt-1 text-sm text-muted-foreground">{result.progression}</p></div><div className="rounded-lg border p-4"><h3 className="font-bold">Recuperación</h3><p className="mt-1 text-sm text-muted-foreground">{result.recovery}</p></div></div>
+      <div className="grid gap-3 sm:grid-cols-2"><div className="rounded-lg border p-4"><h3 className="font-bold">{result.labels.progression}</h3><p className="mt-1 text-sm text-muted-foreground">{result.progression}</p></div><div className="rounded-lg border p-4"><h3 className="font-bold">{result.labels.recovery}</h3><p className="mt-1 text-sm text-muted-foreground">{result.recovery}</p></div></div>
     </section>}
 
     <CoachChat context={`Objetivo: ${goal}. Nivel: ${level}. Lugar: ${place}. Tiempo por sesión: ${time}. Días por semana: ${days}. Músculos prioritarios: ${focus.join(", ") || "ninguno"}. Limitaciones: ${limits || "ninguna"}.`} />
