@@ -40,7 +40,7 @@ export const generateAiRoutine = createServerFn({ method: "POST" })
 Goal: ${data.goal}; Level: ${data.level}; Days: ${data.days}; Place: ${data.place}; Session: ${data.time}; Priority muscles: ${data.focus || "none"}; Limitations: ${data.limits || "none"}.
 Return ONLY valid JSON. All human-readable text MUST be in language code "${data.lang}". Exercise field "name" MUST remain the canonical Spanish gym name so the app can match its media; "displayName" is its translation into the requested language.
 Use exactly this shape: {"title":"","introduction":"","labels":{"sets":"","reps":"","rest":"","seconds":"","technique":"","reason":"","video":"","progression":"","recovery":""},"days":[{"title":"","focus":"Pecho","reason":"","exercises":[{"name":"Press de banca","displayName":"","muscle":"Pecho","sets":4,"reps":"8-10","restSeconds":90,"technique":"","reason":""}]}],"progression":"","recovery":""}.
-Use only these muscle values: Pecho, Espalda, Hombro, Bíceps, Tríceps, Antebrazos, Abdominales, Core, Glúteos, Cuádriceps, Isquiotibiales, Pantorrillas, Cardio, Estiramientos. Include 4-7 exercises per day. Give direct sets and repetitions, never use vague terms such as dose. Explain briefly why every exercise is selected and one key technique cue.`;
+Use only these muscle values: Pecho, Espalda, Hombro, Bíceps, Tríceps, Antebrazos, Abdominales, Core, Glúteos, Cuádriceps, Isquiotibiales, Gemelos, Cardio, Estiramientos. Include 4-7 exercises per day. Give direct sets and repetitions, never use vague terms such as dose. Explain briefly why every exercise is selected and one key technique cue.`;
 
     try {
       const res = await fetch("https://ai.gateway.lovable.dev/v1/chat/completions", {
