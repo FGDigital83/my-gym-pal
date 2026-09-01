@@ -61,6 +61,14 @@ type Dict = {
   dailyCalories?: string; protein?: string; carbs?: string; fats?: string;
   mealsBreakdown?: string; tips?: string;
   maintenanceTitle?: string; maintenanceBody?: string; retry?: string; checkingServer?: string;
+  // Rutina IA
+  aiRoutine?: string; aiRoutineTitle?: string; aiRoutineIntro?: string;
+  aiLevel?: string; aiWhere?: string; aiTime?: string; aiDays?: string;
+  aiFocus?: string; aiLimits?: string; aiLimitsPh?: string;
+  aiGenerate?: string; aiGenerating?: string; aiError?: string; aiRateLimited?: string;
+  lvlBeginner?: string; lvlIntermediate?: string; lvlAdvanced?: string;
+  placeFullGym?: string; placeBasicGym?: string; placeHomeDumbbells?: string; placeHomeNoKit?: string;
+  goalStrength?: string; goalHealth?: string; goalEndurance?: string;
 };
 
 const T: Record<LangCode, Dict> = {
