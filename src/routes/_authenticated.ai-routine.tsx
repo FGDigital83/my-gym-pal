@@ -27,22 +27,30 @@ export const Route = createFileRoute("/_authenticated/ai-routine")({
   component: AiRoutinePage,
 });
 
-const GOALS = ["Ganar músculo", "Perder grasa", "Definir", "Fuerza", "Salud general", "Resistencia"];
-const LEVELS = ["Principiante", "Intermedio", "Avanzado"];
-const PLACES = ["Gimnasio completo", "Gimnasio básico", "En casa con mancuernas", "En casa sin material"];
-const TIMES = ["30 min", "45 min", "60 min", "90 min"];
+type Option = { value: string; label: string };
 
-function Chips({ options, value, onChange }: { options: string[]; value: string; onChange: (v: string) => void }) {
-  return <div className="flex flex-wrap gap-2">{options.map((o) => <Button key={o} type="button" size="sm" variant={value === o ? "default" : "outline"} onClick={() => onChange(o)}>{o}</Button>)}</div>;
+const GOAL_KEYS = ["goalBulk", "goalLose", "goalCut", "goalStrength", "goalHealth", "goalEndurance"] as const;
+const GOAL_VALUES = ["Ganar músculo", "Perder grasa", "Definir", "Fuerza", "Salud general", "Resistencia"];
+const LEVEL_KEYS = ["lvlBeginner", "lvlIntermediate", "lvlAdvanced"] as const;
+const LEVEL_VALUES = ["Principiante", "Intermedio", "Avanzado"];
+const PLACE_KEYS = ["placeFullGym", "placeBasicGym", "placeHomeDumbbells", "placeHomeNoKit"] as const;
+const PLACE_VALUES = ["Gimnasio completo", "Gimnasio básico", "En casa con mancuernas", "En casa sin material"];
+const TIMES: Option[] = ["30 min", "45 min", "60 min", "90 min"].map((v) => ({ value: v, label: v }));
+
+function Chips({ options, value, onChange }: { options: Option[]; value: string; onChange: (v: string) => void }) {
+  return <div className="flex flex-wrap gap-2">{options.map((o) => <Button key={o.value} type="button" size="sm" variant={value === o.value ? "default" : "outline"} onClick={() => onChange(o.value)}>{o.label}</Button>)}</div>;
 }
 
 function AiRoutinePage() {
-  const { lang } = useI18n();
+  const { lang, t } = useI18n();
+  const GOALS: Option[] = GOAL_VALUES.map((value, i) => ({ value, label: t(GOAL_KEYS[i]) }));
+  const LEVELS: Option[] = LEVEL_VALUES.map((value, i) => ({ value, label: t(LEVEL_KEYS[i]) }));
+  const PLACES: Option[] = PLACE_VALUES.map((value, i) => ({ value, label: t(PLACE_KEYS[i]) }));
   const run = useServerFn(generateAiRoutine);
-  const [goal, setGoal] = useState(GOALS[0]);
-  const [level, setLevel] = useState(LEVELS[0]);
-  const [place, setPlace] = useState(PLACES[0]);
-  const [time, setTime] = useState(TIMES[1]);
+  const [goal, setGoal] = useState(GOAL_VALUES[0]);
+  const [level, setLevel] = useState(LEVEL_VALUES[0]);
+  const [place, setPlace] = useState(PLACE_VALUES[0]);
+  const [time, setTime] = useState(TIMES[1].value);
   const [days, setDays] = useState("4");
   const [focus, setFocus] = useState<string[]>([]);
   const [limits, setLimits] = useState("");
@@ -52,34 +60,34 @@ function AiRoutinePage() {
   const mutation = useMutation({
     mutationFn: () => run({ data: { goal, level, days, place, time, focus: focus.join(", "), limits, lang } }),
     onSuccess: (response) => {
-      if (response.error) return toast.error(response.message || (response.error === "rate_limited" ? "Demasiadas peticiones, prueba en un minuto." : "No se pudo generar la rutina."));
+      if (response.error) return toast.error(response.message || (response.error === "rate_limited" ? t("aiRateLimited") : t("aiError")));
       setResult(response.routine);
     },
-    onError: () => toast.error("No se pudo generar la rutina."),
+    onError: () => toast.error(t("aiError")),
   });
 
   return <div className="space-y-6">
     <TrainingTabs />
     <section className="space-y-1">
-      <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">Rutina IA</p>
-      <h1 className="text-3xl sm:text-4xl font-bold">Tu entrenador inteligente</h1>
-      <p className="text-muted-foreground">Responde el cuestionario y recibe ejercicios visuales con series y repeticiones directas.</p>
+      <p className="text-xs uppercase tracking-[0.25em] text-primary font-semibold">{t("aiRoutine")}</p>
+      <h1 className="text-3xl sm:text-4xl font-bold">{t("aiRoutineTitle")}</h1>
+      <p className="text-muted-foreground">{t("aiRoutineIntro")}</p>
     </section>
 
     <div className="rounded-lg border bg-card p-5 space-y-5">
-      <div className="space-y-2"><Label>Objetivo</Label><Chips options={GOALS} value={goal} onChange={setGoal} /></div>
-      <div className="space-y-2"><Label>Nivel</Label><Chips options={LEVELS} value={level} onChange={setLevel} /></div>
-      <div className="space-y-2"><Label>¿Dónde entrenas?</Label><Chips options={PLACES} value={place} onChange={setPlace} /></div>
-      <div className="space-y-2"><Label>Tiempo por sesión</Label><Chips options={TIMES} value={time} onChange={setTime} /></div>
-      <div className="space-y-2"><Label htmlFor="days">Días por semana</Label><Input id="days" type="number" min={1} max={7} value={days} onChange={(e) => setDays(e.target.value)} /></div>
+      <div className="space-y-2"><Label>{t("goal")}</Label><Chips options={GOALS} value={goal} onChange={setGoal} /></div>
+      <div className="space-y-2"><Label>{t("aiLevel")}</Label><Chips options={LEVELS} value={level} onChange={setLevel} /></div>
+      <div className="space-y-2"><Label>{t("aiWhere")}</Label><Chips options={PLACES} value={place} onChange={setPlace} /></div>
+      <div className="space-y-2"><Label>{t("aiTime")}</Label><Chips options={TIMES} value={time} onChange={setTime} /></div>
+      <div className="space-y-2"><Label htmlFor="days">{t("aiDays")}</Label><Input id="days" type="number" min={1} max={7} value={days} onChange={(e) => setDays(e.target.value)} /></div>
       <div className="space-y-2">
-        <Label>Músculos prioritarios (opcional)</Label>
+        <Label>{t("aiFocus")}</Label>
         <div className="flex flex-wrap gap-2">{MUSCLES.map((m) => <Button key={m} type="button" size="sm" variant={focus.includes(m) ? "default" : "outline"} onClick={() => setFocus((current) => current.includes(m) ? current.filter((x) => x !== m) : [...current, m])}>{m}</Button>)}</div>
       </div>
-      <div className="space-y-2"><Label htmlFor="limits">Lesiones o limitaciones (opcional)</Label><Input id="limits" value={limits} onChange={(e) => setLimits(e.target.value)} placeholder="Ej. molestia en hombro derecho" /></div>
+      <div className="space-y-2"><Label htmlFor="limits">{t("aiLimits")}</Label><Input id="limits" value={limits} onChange={(e) => setLimits(e.target.value)} placeholder={t("aiLimitsPh")} /></div>
       <Button className="w-full" onClick={() => mutation.mutate()} disabled={mutation.isPending}>
         {mutation.isPending ? <Loader2 className="h-4 w-4 animate-spin" /> : <Sparkles className="h-4 w-4" />}
-        {mutation.isPending ? "Generando rutina..." : "Generar rutina con IA"}
+        {mutation.isPending ? t("aiGenerating") : t("aiGenerate")}
       </Button>
     </div>
 
