@@ -109,7 +109,7 @@ export function exerciseImageFor(name: string, muscle?: Muscle | null): string {
     case "Cardio":
       return MUSCLE_IMAGE.Cardio;
     default:
-      if ((muscle as string) === "Pantorrillas") return pantorrillas;
+      if ((muscle as unknown as string) === "Pantorrillas") return pantorrillas;
       return (muscle ? MUSCLE_IMAGE[muscle] : core) ?? core;
   }
 }
