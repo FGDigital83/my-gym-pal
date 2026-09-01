@@ -26,7 +26,7 @@ export const MUSCLE_IMAGE: Record<Muscle, string> = {
   "Glúteos": gluteos,
   "Cuádriceps": cuadriceps,
   Isquiotibiales: isquiotibiales,
-  Pantorrillas: pantorrillas,
+  Gemelos: pantorrillas,
   Cardio: cardio,
   Estiramientos: estiramientos,
 };
@@ -272,7 +272,7 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Reverse hyper" },
     { name: "Slider leg curl" },
   ],
-  Pantorrillas: [
+  Gemelos: [
     { name: "Elevación de talones de pie con barra" },
     { name: "Elevación de talones de pie en máquina" },
     { name: "Elevación de talones sentado" },
@@ -344,7 +344,7 @@ export const DEFAULT_PICKS: Partial<Record<Muscle, string[]>> = {
   "Glúteos": ["Hip thrust con barra", "Sentadilla búlgara", "Peso muerto rumano", "Abductor en máquina"],
   "Cuádriceps": ["Sentadilla con barra", "Prensa de piernas", "Extensiones de cuádriceps", "Zancadas con mancuernas"],
   Isquiotibiales: ["Peso muerto rumano", "Curl femoral tumbado", "Curl femoral sentado", "Buenos días con barra"],
-  Pantorrillas: ["Elevación de talones de pie en máquina", "Elevación de talones sentado", "Pantorrilla en prensa", "Donkey calf raise"],
+  Gemelos: ["Elevación de talones de pie en máquina", "Elevación de talones sentado", "Pantorrilla en prensa", "Donkey calf raise"],
   Cardio: ["Cinta inclinada (caminata)", "Bicicleta estática", "Remo (rower)", "HIIT"],
   Estiramientos: [
     "Estiramiento de isquiotibiales de pie",

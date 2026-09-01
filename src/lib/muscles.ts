@@ -10,7 +10,7 @@ export const MUSCLES = [
   "Glúteos",
   "Cuádriceps",
   "Isquiotibiales",
-  "Pantorrillas",
+  "Gemelos",
   "Cardio",
   "Estiramientos",
 ] as const;

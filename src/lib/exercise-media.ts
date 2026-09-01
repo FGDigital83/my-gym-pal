@@ -90,7 +90,7 @@ export function exerciseImageFor(name: string, muscle?: Muscle | null): string {
       return cuadriceps;
     case "Isquiotibiales":
       return isquiotibiales;
-    case "Pantorrillas":
+    case "Gemelos":
       return pantorrillas;
     case "Estiramientos":
       if (has(name, /isquiotibial/)) return isquiotibiales;
@@ -125,7 +125,7 @@ const VIDEO_BY_MUSCLE: Record<Muscle, string> = {
   "Glúteos": hipThrustVideo.url,
   "Cuádriceps": sentadillaVideo.url,
   Isquiotibiales: curlFemoralVideo.url,
-  Pantorrillas: elevacionTalonesVideo.url,
+  Gemelos: elevacionTalonesVideo.url,
   Cardio: cardioVideo.url,
   Estiramientos: estiramientosVideo.url,
 };
