@@ -136,7 +136,12 @@ const VIDEO_BY_MUSCLE: Record<Muscle, string> = {
  * el mismo patrón de movimiento, como en una biblioteca profesional de técnica.
  */
 export function exerciseVideoFor(name: string, muscle?: Muscle | null): string {
+  const specific = specificVideoFor(name);
+  if (specific) return specific;
+
   const n = normalize(name);
+
+
 
   if (/(cinta|bicicleta|eliptica|rower|escaladora|ski erg|assault|hiit|sprint|burpee|jumping jack|battle rope|box jump|sled push)/.test(n)) return cardioVideo.url;
   if (/(estiramiento|postura|gato-camello|perro boca abajo|cobra|torsion espinal|movilidad)/.test(n)) return estiramientosVideo.url;
