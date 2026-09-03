@@ -73,6 +73,16 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Remo con barra apoyado en banco": "remo-apoyado-banco",
   "Remo invertido": "remo-invertido",
   "Remo en polea baja": "remo-polea-baja",
+  "Dominadas pronas": "dominadas-pronas",
+  "Dominadas supinas (chin up)": "dominadas-supinas",
+  "Jalón al pecho agarre ancho": "jalon-pecho-ancho",
+  "Encogimientos con barra": "encogimientos-barra",
+  "Encogimientos con mancuernas": "encogimientos-mancuernas",
+  "Face pull": "face-pull",
+  "Hiperextensiones": "hiperextensiones",
+
+  // ---------------- Hombro ----------------
+  "Press militar con barra de pie": "press-militar-barra",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
