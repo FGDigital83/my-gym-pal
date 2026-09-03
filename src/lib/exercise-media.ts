@@ -1,5 +1,6 @@
 import type { Muscle } from "./muscles";
 import { MUSCLE_IMAGE } from "./exercise-catalog";
+import { specificVideoFor } from "./exercise-videos";
 
 import pechoSuperior from "@/assets/zone-pecho-superior.jpg";
 import pechoMedio from "@/assets/zone-pecho-medio.jpg";
