@@ -137,7 +137,7 @@ const VIDEO_BY_MUSCLE: Record<Muscle, string> = {
  * el mismo patrón de movimiento, como en una biblioteca profesional de técnica.
  */
 export function exerciseVideoFor(name: string, muscle?: Muscle | null): string {
-  const specific = specificVideoFor(name);
+  const specific = specificVideoFor(name, muscle);
   if (specific) return specific;
 
   const n = normalize(name);

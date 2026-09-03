@@ -80,9 +80,21 @@ for (const [name, slug] of Object.entries(EXERCISE_VIDEO_SLUG)) {
   SLUG_BY_NORMALIZED_NAME[normalize(name)] = slug;
 }
 
+/**
+ * Nombres que existen en varios grupos musculares: el clip específico solo
+ * aplica al grupo indicado.
+ */
+const MUSCLE_RESTRICTED: Record<string, string> = {
+  "press en maquina": "Pecho",
+  "pullover con mancuerna": "Pecho",
+};
+
 /** Devuelve el vídeo específico del ejercicio, o null si aún no existe. */
-export function specificVideoFor(name: string): string | null {
-  const slug = SLUG_BY_NORMALIZED_NAME[normalize(name)];
+export function specificVideoFor(name: string, muscle?: string | null): string | null {
+  const key = normalize(name);
+  const restricted = MUSCLE_RESTRICTED[key];
+  if (restricted && muscle && muscle !== restricted) return null;
+  const slug = SLUG_BY_NORMALIZED_NAME[key];
   if (!slug) return null;
   return VIDEO_URL_BY_SLUG[slug] ?? null;
 }
