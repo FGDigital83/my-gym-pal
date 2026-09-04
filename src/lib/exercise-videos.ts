@@ -33,6 +33,9 @@ function normalize(value: string) {
 /** Nombre exacto del catálogo -> slug del clip. */
 const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   // ---------------- Pecho ----------------
+  "Press de banca": "press-banca",
+  "Press inclinado con barra": "press-inclinado-barra",
+  "Fondos en paralelas (pecho)": "fondos-paralelas",
   "Press con mancuernas plano": "press-mancuernas-plano",
   "Press inclinado mancuernas": "press-inclinado-mancuernas",
   "Press declinado mancuernas": "press-declinado-mancuernas",
@@ -74,6 +77,7 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Remo invertido": "remo-invertido",
   "Remo en polea baja": "remo-polea-baja",
   "Dominadas pronas": "dominadas-pronas",
+  "Dominadas neutras": "dominadas",
   "Dominadas supinas (chin up)": "dominadas-supinas",
   "Jalón al pecho agarre ancho": "jalon-pecho-ancho",
   "Encogimientos con barra": "encogimientos-barra",
@@ -82,6 +86,7 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Hiperextensiones": "hiperextensiones",
 
   // ---------------- Hombro ----------------
+  "Press militar sentado": "press-militar",
   "Press militar con barra de pie": "press-militar-barra",
   "Press con mancuernas sentado": "press-mancuernas-sentado",
   "Elevaciones laterales con mancuernas": "elevaciones-laterales-mancuernas",
@@ -91,6 +96,7 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   // ---------------- Bíceps ----------------
   "Curl con barra recta": "curl-barra-recta",
   "Curl con mancuernas": "curl-mancuernas",
+  "Curl alterno con mancuernas": "curl-alterno-mancuernas",
 
   // ---------------- Tríceps ----------------
   "Extensiones en polea con cuerda": "extension-triceps-cuerda",
@@ -109,6 +115,22 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Crunch": "crunch-abdominal",
   "Elevación de piernas colgado": "elevacion-piernas-colgado",
   "Curl de muñeca con barra": "curl-muneca-barra",
+  "Push up (flexiones)": "push-up",
+  "Jalón al pecho agarre cerrado": "jalon-cerrado",
+  "Curl con barra Z": "curl-barra-z",
+  "Curl predicador con barra": "curl-predicador-barra",
+  "Press francés con mancuernas": "press-frances-mancuernas",
+  "Extensiones en polea con barra": "extension-polea-barra",
+  "Fondos en banco": "fondos-banco",
+  "Press Arnold": "press-arnold",
+  "Jalón agarre supino": "jalon-supino",
+  "Remo en polea con agarre ancho": "remo-polea-ancho",
+  "Elevaciones laterales en polea": "elevaciones-laterales-polea",
+  "Curl concentrado": "curl-concentrado",
+  "Patada de tríceps con mancuerna": "patada-triceps-mancuerna",
+  "Sentadilla búlgara": "sentadilla-bulgara",
+  "Glute bridge": "glute-bridge",
+  "Plancha lateral": "plancha-lateral",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
