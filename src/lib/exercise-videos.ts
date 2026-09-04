@@ -93,7 +93,7 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Curl con mancuernas": "curl-mancuernas",
 
   // ---------------- Tríceps ----------------
-  "Extensión de tríceps en polea con cuerda": "extension-triceps-cuerda",
+  "Extensiones en polea con cuerda": "extension-triceps-cuerda",
 
   // ---------------- Cuádriceps ----------------
   "Sentadilla con barra": "sentadilla-barra",
