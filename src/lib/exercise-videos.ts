@@ -97,6 +97,18 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
 
   // ---------------- Cuádriceps ----------------
   "Sentadilla con barra": "sentadilla-barra",
+  "Curl martillo": "curl-martillo",
+  "Press francés con barra": "press-frances-barra",
+  "Prensa de piernas": "prensa-piernas",
+  "Extensiones de cuádriceps": "extensiones-cuadriceps",
+  "Curl femoral tumbado": "curl-femoral-tumbado",
+  "Peso muerto rumano": "peso-muerto-rumano",
+  "Hip thrust con barra": "hip-thrust-barra",
+  "Elevación de talones de pie en máquina": "talones-pie-maquina",
+  "Plancha frontal": "plancha",
+  "Crunch": "crunch-abdominal",
+  "Elevación de piernas colgado": "elevacion-piernas-colgado",
+  "Curl de muñeca con barra": "curl-muneca-barra",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
