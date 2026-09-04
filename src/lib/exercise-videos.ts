@@ -105,6 +105,10 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Peso muerto rumano": "peso-muerto-rumano",
   "Hip thrust con barra": "hip-thrust-barra",
   "Elevación de talones de pie en máquina": "talones-pie-maquina",
+  "Plancha frontal": "plancha",
+  "Crunch": "crunch-abdominal",
+  "Elevación de piernas colgado": "elevacion-piernas-colgado",
+  "Curl de muñeca con barra": "curl-muneca-barra",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
