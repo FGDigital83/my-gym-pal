@@ -83,6 +83,20 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
 
   // ---------------- Hombro ----------------
   "Press militar con barra de pie": "press-militar-barra",
+  "Press con mancuernas sentado": "press-mancuernas-sentado",
+  "Elevaciones laterales con mancuernas": "elevaciones-laterales-mancuernas",
+  "Elevaciones frontales con mancuernas": "elevaciones-frontales-mancuernas",
+  "Pájaros con mancuernas": "pajaros-mancuernas",
+
+  // ---------------- Bíceps ----------------
+  "Curl con barra recta": "curl-barra-recta",
+  "Curl con mancuernas": "curl-mancuernas",
+
+  // ---------------- Tríceps ----------------
+  "Extensiones en polea con cuerda": "extension-triceps-cuerda",
+
+  // ---------------- Cuádriceps ----------------
+  "Sentadilla con barra": "sentadilla-barra",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
