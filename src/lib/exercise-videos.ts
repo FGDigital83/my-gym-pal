@@ -141,6 +141,15 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Hip thrust en máquina": "hip-thrust-maquina",
   "Rueda abdominal (ab wheel)": "rueda-abdominal",
   "Elevación de talones sentado": "talones-sentado",
+  "Skull crushers": "skull-crushers",
+  "Press francés con barra": "skull-crushers",
+  "Extensiones sobre cabeza con mancuerna": "extension-sobre-cabeza-mancuerna",
+  "Curl predicador con mancuerna": "curl-predicador-mancuerna",
+  "Curl en polea baja": "curl-polea-baja",
+  "Dominadas con peso": "dominadas-con-peso",
+  "Dominadas asistidas": "dominadas-asistidas",
+  "Jalón a una mano": "jalon-una-mano",
+  "Patada de glúteo en polea": "patada-gluteo-polea",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
