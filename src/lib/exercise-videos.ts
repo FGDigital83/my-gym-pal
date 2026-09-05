@@ -150,6 +150,17 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Dominadas asistidas": "dominadas-asistidas",
   "Jalón a una mano": "jalon-una-mano",
   "Patada de glúteo en polea": "patada-gluteo-polea",
+  "Cinta de correr": "cinta-correr",
+  "Cinta inclinada (caminata)": "cinta-correr",
+  "Bicicleta estática": "bicicleta-estatica",
+  "Bicicleta de spinning": "bicicleta-estatica",
+  "Bicicleta reclinada": "bicicleta-estatica",
+  "Elíptica": "eliptica",
+  "Remo (rower)": "remo-rower",
+  "Escaladora (stair master)": "escaladora",
+  "Jumping jacks": "jumping-jacks",
+  "Burpees": "burpees",
+  "Mountain climbers": "mountain-climbers",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
