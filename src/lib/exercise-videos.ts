@@ -131,6 +131,16 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Sentadilla búlgara": "sentadilla-bulgara",
   "Glute bridge": "glute-bridge",
   "Plancha lateral": "plancha-lateral",
+  "Sentadilla frontal": "sentadilla-frontal",
+  "Sentadilla goblet": "sentadilla-goblet",
+  "Zancadas con mancuernas": "zancadas-mancuernas",
+  "Zancadas caminando": "zancadas-mancuernas",
+  "Curl femoral sentado": "curl-femoral-sentado",
+  "Buenos días con barra": "buenos-dias",
+  "Good morning": "buenos-dias",
+  "Hip thrust en máquina": "hip-thrust-maquina",
+  "Rueda abdominal (ab wheel)": "rueda-abdominal",
+  "Elevación de talones sentado": "talones-sentado",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
