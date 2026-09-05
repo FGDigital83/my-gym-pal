@@ -161,6 +161,16 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Jumping jacks": "jumping-jacks",
   "Burpees": "burpees",
   "Mountain climbers": "mountain-climbers",
+  "Estiramiento de isquiotibiales de pie": "estir-isquios-pie",
+  "Estiramiento de isquiotibiales sentado": "estir-isquios-pie",
+  "Estiramiento de cuádriceps de pie": "estir-cuadriceps",
+  "Estiramiento de flexores de cadera (zancada)": "estir-flexores-cadera",
+  "Estiramiento de aductores (mariposa)": "estir-mariposa",
+  "Estiramiento de gemelos en pared": "estir-gemelos-pared",
+  "Estiramiento de sóleo": "estir-gemelos-pared",
+  "Estiramiento de pectoral en marco de puerta": "estir-pectoral-puerta",
+  "Postura del niño (child pose)": "postura-nino",
+  "Gato-camello (cat-cow)": "gato-camello",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
