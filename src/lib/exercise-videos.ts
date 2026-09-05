@@ -142,7 +142,6 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Rueda abdominal (ab wheel)": "rueda-abdominal",
   "Elevación de talones sentado": "talones-sentado",
   "Skull crushers": "skull-crushers",
-  "Press francés con barra": "skull-crushers",
   "Extensiones sobre cabeza con mancuerna": "extension-sobre-cabeza-mancuerna",
   "Curl predicador con mancuerna": "curl-predicador-mancuerna",
   "Curl en polea baja": "curl-polea-baja",
