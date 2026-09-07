@@ -201,6 +201,15 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Extensiones sobre cabeza con cuerda": "extension-sobre-cabeza-cuerda",
   "Extensiones sobre cabeza con barra Z": "extension-sobre-cabeza-mancuerna",
   "Tríceps en máquina": "triceps-maquina",
+  "Abductor en máquina": "abductor-maquina",
+  "Abducción en polea": "abduccion-polea",
+  "Step up": "step-up",
+  "Step up con mancuernas": "step-up",
+  "Cable pull through": "cable-pull-through",
+  "Curl femoral de pie": "curl-femoral-de-pie",
+  "Kettlebell swing": "kettlebell-swing",
+  "Curl nórdico": "curl-nordico",
+  "Assault bike": "assault-bike",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
