@@ -170,6 +170,18 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Estiramiento de pectoral en marco de puerta": "estir-pectoral-puerta",
   "Postura del niño (child pose)": "postura-nino",
   "Gato-camello (cat-cow)": "gato-camello",
+  "Crunch en polea": "crunch-polea",
+  "Crunch en máquina": "crunch-polea",
+  "Crunch inverso": "crunch-inverso",
+  "Sit up": "sit-up",
+  "V-up": "v-up",
+  "Toes to bar": "elevacion-piernas-colgado",
+  "Elevación de rodillas colgado": "elevacion-rodillas-colgado",
+  "Hollow hold": "hollow-hold",
+  "Hollow body hold": "hollow-hold",
+  "Cable woodchopper": "woodchopper",
+  "Russian twist": "russian-twist",
+  "Russian twist con peso": "russian-twist",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
