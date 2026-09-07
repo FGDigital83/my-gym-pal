@@ -192,6 +192,15 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Curl inclinado con mancuernas": "curl-inclinado",
   "Curl martillo en cuerda": "curl-martillo-cuerda",
   "Press cerrado en banca": "press-cerrado-banca",
+  "Jalón con cuerda": "jalon-cuerda",
+  "Pull over en máquina": "pullover-maquina",
+  "Elevaciones laterales en máquina": "elevaciones-laterales-maquina",
+  "Curl en máquina": "curl-maquina",
+  "Curl Spider": "curl-spider",
+  "Patada de tríceps en polea": "patada-triceps-polea",
+  "Extensiones sobre cabeza con cuerda": "extension-sobre-cabeza-cuerda",
+  "Extensiones sobre cabeza con barra Z": "extension-sobre-cabeza-mancuerna",
+  "Tríceps en máquina": "triceps-maquina",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
