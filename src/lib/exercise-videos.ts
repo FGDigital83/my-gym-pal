@@ -182,6 +182,16 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Cable woodchopper": "woodchopper",
   "Russian twist": "russian-twist",
   "Russian twist con peso": "russian-twist",
+  "Elevaciones frontales con barra": "elevacion-frontal-barra",
+  "Elevación frontal con disco": "elevacion-frontal-barra",
+  "Pájaros en banco inclinado": "pajaros-banco-inclinado",
+  "Posterior en máquina (reverse fly)": "reverse-fly-maquina",
+  "Remo al mentón con barra": "remo-menton-barra",
+  "Remo al mentón con mancuernas": "remo-menton-barra",
+  "Push press": "push-press",
+  "Curl inclinado con mancuernas": "curl-inclinado",
+  "Curl martillo en cuerda": "curl-martillo-cuerda",
+  "Press cerrado en banca": "press-cerrado-banca",
 };
 
 const SLUG_BY_NORMALIZED_NAME: Record<string, string> = {};
