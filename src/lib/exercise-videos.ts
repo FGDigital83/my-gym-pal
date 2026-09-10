@@ -46,7 +46,7 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Press Smith inclinado": "press-smith-inclinado",
   "Aperturas con mancuernas": "aperturas-mancuernas",
   "Aperturas inclinadas con mancuernas": "aperturas-inclinadas",
-  "Aperturas declinadas": "aperturas-declinadas",
+  
   "Aperturas en máquina (peck deck)": "peck-deck",
   "Cruce de poleas alto": "cruce-poleas-alto",
   "Cruce de poleas medio": "cruce-poleas-medio",
