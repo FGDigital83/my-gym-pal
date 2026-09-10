@@ -47,7 +47,7 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Press Smith inclinado" },
     { name: "Aperturas con mancuernas" },
     { name: "Aperturas inclinadas con mancuernas" },
-    { name: "Aperturas declinadas" },
+    
     { name: "Aperturas en máquina (peck deck)" },
     { name: "Cruce de poleas alto" },
     { name: "Cruce de poleas medio" },
