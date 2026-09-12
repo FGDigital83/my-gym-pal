@@ -34,7 +34,7 @@ function normalize(value: string) {
 const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   // ---------------- Pecho ----------------
   "Press de banca": "press-banca",
-  "Press inclinado con barra": "press-inclinado-barra",
+  
   "Fondos en paralelas (pecho)": "fondos-paralelas",
   "Press con mancuernas plano": "press-mancuernas-plano",
   "Press inclinado mancuernas": "press-inclinado-mancuernas",
