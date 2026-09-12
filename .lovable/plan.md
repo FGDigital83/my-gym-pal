@@ -1,13 +1,20 @@
-# Uniformidad visual y ajustes de pecho
+# Uniformidad visual y correcciones de pecho y espalda
 
-## Cambios
-- Rehacer **Press en máquina** con un solo maniquí anatómico idéntico al estilo existente, pecho marcado en verde y empuje recto hacia delante.
-- Rehacer **Press inclinado con barra** con el mismo maniquí, pecho superior marcado en verde, banco inclinado y soporte/rack visible para la barra.
-- Revisar fotogramas de ambos vídeos antes de conservarlos y enlazarlos.
-- Eliminar del catálogo **Pullover con mancuerna** y **Pullover en polea**, incluyendo la variante duplicada de polea en Espalda.
-- Mantener como regla para futuros vídeos: misma figura, mismo acabado y zona muscular trabajada resaltada en verde.
+## Pecho
+- Rehacer y validar **Press en máquina** con un solo maniquí uniforme, pecho en verde y empuje recto hacia delante.
+- Rehacer y validar **Press inclinado con barra** con pecho superior en verde, banco inclinado y soporte para la barra.
+- Eliminar **Pullover con mancuerna** y **Pullover en polea**.
 
-## Detalles técnicos
-- Conservar los nombres y enlaces actuales de los dos presses para que se actualicen sin cambiar la navegación.
-- Retirar únicamente las entradas de pullover solicitadas; no eliminar “Pull over en máquina”.
-- Confirmar que la app sigue funcionando después de los cambios.
+## Espalda
+- Eliminar: Peso muerto convencional, Peso muerto sumo, Peso muerto con trap bar, Remo Pendlay, Remo Yates, Remo con barra apoyado en banco, Remo en polea con agarre ancho, Good morning, Face pull, Encogimientos con barra, Encogimientos con mancuernas, Rack pulls, Jalón agarre supino, Jalón con cuerda, Pullover con mancuerna, Pullover en polea, Remo Meadows, Kroc rows y Pull over en máquina.
+- Rehacer **Remo en máquina** con pecho apoyado y tirón recto hacia atrás.
+- Rehacer **Remo invertido** con el maniquí debajo de la barra, subiendo y bajando mediante flexión de brazos.
+- Rehacer **Hiperextensiones**, **Hiperextensiones con peso**, **Reverse hyper** y **Superman** con el mismo maniquí y la zona lumbar activa en verde.
+- Rehacer **Dominadas supinas** con agarre supino correcto.
+- Rehacer **Jalón al pecho agarre ancho** y **Jalón a una mano** con el maniquí sentado de cara a la máquina.
+
+## Regla para todos los vídeos
+- Utilizar siempre la misma figura y acabado del maniquí.
+- Marcar en verde la zona muscular activa.
+- Revisar fotogramas y ejecución antes de enlazar cada vídeo en la app.
+- No reutilizar ni enlazar clips que no representen exactamente el ejercicio.
