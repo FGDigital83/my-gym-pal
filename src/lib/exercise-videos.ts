@@ -71,9 +71,6 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Dominadas neutras": "dominadas",
   "Dominadas supinas (chin up)": "dominadas-supinas",
   "Jalón al pecho agarre ancho": "jalon-pecho-ancho",
-  "Encogimientos con barra": "encogimientos-barra",
-  "Encogimientos con mancuernas": "encogimientos-mancuernas",
-  "Face pull": "face-pull",
   "Hiperextensiones": "hiperextensiones",
 
   // ---------------- Hombro ----------------
