@@ -41,7 +41,6 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Press declinado mancuernas": "press-declinado-mancuernas",
   "Press declinado con barra": "press-declinado-barra",
   "Press de banca agarre cerrado": "press-banca-cerrado",
-  "Press en máquina": "press-maquina-pecho",
   "Press Smith plano": "press-smith-plano",
   "Press Smith inclinado": "press-smith-inclinado",
   "Aperturas con mancuernas": "aperturas-mancuernas",
