@@ -1,7 +1,7 @@
 # Roadmap
 
-- [ ] Pecho: rehacer y validar Press en máquina con maniquí uniforme y pecho verde.
-- [ ] Pecho: rehacer y validar Press inclinado con barra, soporte visible y pecho superior verde.
+- [x] Pecho: rehacer y validar Press en máquina con maniquí uniforme, pecho verde y empuje recto hacia delante.
+- [x] Pecho: rehacer y validar Press inclinado con barra, banco inclinado, soporte visible y pecho superior verde.
 - [ ] Pecho: eliminar Pullover con mancuerna y Pullover en polea.
 - [ ] Espalda: eliminar los ejercicios indicados del catálogo y sus enlaces de vídeo.
 - [ ] Espalda: rehacer y validar Remo en máquina con pecho apoyado y tirón recto hacia atrás.
