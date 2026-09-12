@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "7fd61d7a-0da5-49d1-8eac-5d6dd4e32468",
+  "asset_id": "7de610b0-3a17-4dc5-95cc-0fda4fdff632",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/7fd61d7a-0da5-49d1-8eac-5d6dd4e32468/ex-press-inclinado-barra.mp4",
+  "url": "/__l5e/assets-v1/7de610b0-3a17-4dc5-95cc-0fda4fdff632/ex-press-inclinado-barra.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/7de610b0-3a17-4dc5-95cc-0fda4fdff632/ex-press-inclinado-barra.mp4",
   "original_filename": "ex-press-inclinado-barra.mp4",
-  "size": 2658498,
-  "created_at": "2026-09-12T16:45:59Z"
+  "size": 4114424,
+  "content_type": "video/mp4",
+  "created_at": "2026-09-12T17:05:16Z"
 }
