@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "3e7660d9-c8a0-4a93-98a3-1fad10a70e2a",
+  "asset_id": "3df43681-a542-44bf-ae1e-ec3a01902903",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/3e7660d9-c8a0-4a93-98a3-1fad10a70e2a/ex-remo-maquina.mp4",
-  "original_filename": "ex-remo-maquina.mp4",
-  "size": 4139374,
-  "created_at": "2026-09-02T14:21:06Z"
+  "url": "/__l5e/assets-v1/3df43681-a542-44bf-ae1e-ec3a01902903/remo-maquina.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/3df43681-a542-44bf-ae1e-ec3a01902903/remo-maquina.mp4",
+  "original_filename": "remo-maquina.mp4",
+  "size": 3202834,
+  "content_type": "video/mp4",
+  "created_at": "2026-09-12T17:13:04Z"
 }
