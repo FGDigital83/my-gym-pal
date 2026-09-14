@@ -70,7 +70,6 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Remo en polea baja" },
     { name: "Hiperextensiones" },
     { name: "Hiperextensiones con peso" },
-    { name: "Reverse hyper" },
     { name: "Superman" },
     { name: "Dominadas pronas" },
     { name: "Dominadas supinas (chin up)" },
@@ -246,7 +245,6 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Glute ham raise" },
     { name: "Hiperextensiones (énfasis isquios)" },
     { name: "Kettlebell swing" },
-    { name: "Reverse hyper" },
     { name: "Slider leg curl" },
   ],
   Gemelos: [

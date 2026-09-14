@@ -193,7 +193,6 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Curl nórdico": "curl-nordico",
   "Assault bike": "assault-bike",
   "Hiperextensiones con peso": "hiperextensiones-con-peso",
-  "Reverse hyper": "reverse-hyper",
   "Superman": "superman",
   "Elevaciones laterales inclinado": "elevaciones-laterales-inclinado",
   "Elevaciones frontales en polea": "elevaciones-frontales-en-polea",
