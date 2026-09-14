@@ -72,7 +72,7 @@ export const EXERCISE_CATALOG: Record<Muscle, CatalogExercise[]> = {
     { name: "Hiperextensiones con peso" },
     { name: "Superman" },
     { name: "Dominadas pronas" },
-    { name: "Dominadas supinas (chin up)" },
+    
     { name: "Dominadas neutras" },
     { name: "Dominadas con peso" },
     { name: "Dominadas asistidas" },
