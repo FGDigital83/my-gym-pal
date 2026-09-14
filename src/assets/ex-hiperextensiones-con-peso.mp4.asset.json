@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "87a8e111-5e37-4ae6-a514-00c21315377c",
+  "asset_id": "4f23789d-59ba-41e9-b507-7c2c67f4e777",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/87a8e111-5e37-4ae6-a514-00c21315377c/ex-hiperextensiones-con-peso.mp4",
-  "original_filename": "ex-hiperextensiones-con-peso.mp4",
-  "size": 2653547,
-  "created_at": "2026-09-09T13:26:05Z"
+  "url": "/__l5e/assets-v1/4f23789d-59ba-41e9-b507-7c2c67f4e777/hiperextensiones-con-peso.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/4f23789d-59ba-41e9-b507-7c2c67f4e777/hiperextensiones-con-peso.mp4",
+  "original_filename": "hiperextensiones-con-peso.mp4",
+  "size": 2339188,
+  "content_type": "video/mp4",
+  "created_at": "2026-09-14T10:41:22Z"
 }

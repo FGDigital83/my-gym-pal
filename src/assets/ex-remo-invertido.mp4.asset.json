@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "2d72c572-00e6-41a1-8d17-96c0c8c0fde7",
+  "asset_id": "bed41f86-fedb-499e-acbe-4dbc13f19a5e",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/2d72c572-00e6-41a1-8d17-96c0c8c0fde7/ex-remo-invertido.mp4",
-  "original_filename": "ex-remo-invertido.mp4",
-  "size": 2374185,
-  "created_at": "2026-09-02T14:20:53Z"
+  "url": "/__l5e/assets-v1/bed41f86-fedb-499e-acbe-4dbc13f19a5e/remo-invertido.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/bed41f86-fedb-499e-acbe-4dbc13f19a5e/remo-invertido.mp4",
+  "original_filename": "remo-invertido.mp4",
+  "size": 2526599,
+  "content_type": "video/mp4",
+  "created_at": "2026-09-14T10:41:10Z"
 }
