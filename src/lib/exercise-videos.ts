@@ -68,7 +68,7 @@ const EXERCISE_VIDEO_SLUG: Record<string, string> = {
   "Remo en polea baja": "remo-polea-baja",
   "Dominadas pronas": "dominadas-pronas",
   "Dominadas neutras": "dominadas",
-  "Dominadas supinas (chin up)": "dominadas-supinas",
+  "Dominadas supinas (chin up)": "dominadas-supinas-v2",
   "Jalón al pecho agarre ancho": "jalon-pecho-ancho",
   "Hiperextensiones": "hiperextensiones",
 
