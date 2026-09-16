@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "7de83619-9690-4bed-b3b5-330045c58995",
+  "asset_id": "8e6ad1c8-8b41-4877-aca4-acece6516e57",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/7de83619-9690-4bed-b3b5-330045c58995/ex-elevaciones-laterales-mancuernas.mp4",
-  "original_filename": "ex-elevaciones-laterales-mancuernas.mp4",
-  "size": 1882757,
-  "created_at": "2026-09-03T13:52:52Z"
+  "url": "/__l5e/assets-v1/8e6ad1c8-8b41-4877-aca4-acece6516e57/elevaciones-laterales-mancuernas.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/8e6ad1c8-8b41-4877-aca4-acece6516e57/elevaciones-laterales-mancuernas.mp4",
+  "original_filename": "elevaciones-laterales-mancuernas.mp4",
+  "size": 1608511,
+  "content_type": "video/mp4",
+  "created_at": "2026-09-16T18:53:45Z"
 }

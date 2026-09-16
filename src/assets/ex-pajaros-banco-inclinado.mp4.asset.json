@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "db610d5c-65de-4bbf-bcbe-f734f3222f4c",
+  "asset_id": "d211e8bf-ff28-4bdf-ab67-d0a25688989c",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/db610d5c-65de-4bbf-bcbe-f734f3222f4c/ex-pajaros-banco-inclinado.mp4",
-  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/db610d5c-65de-4bbf-bcbe-f734f3222f4c/ex-pajaros-banco-inclinado.mp4",
-  "original_filename": "ex-pajaros-banco-inclinado.mp4",
-  "size": 2365605,
+  "url": "/__l5e/assets-v1/d211e8bf-ff28-4bdf-ab67-d0a25688989c/pajaros-banco-inclinado.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/d211e8bf-ff28-4bdf-ab67-d0a25688989c/pajaros-banco-inclinado.mp4",
+  "original_filename": "pajaros-banco-inclinado.mp4",
+  "size": 1893960,
   "content_type": "video/mp4",
-  "created_at": "2026-09-07T16:23:44Z"
+  "created_at": "2026-09-16T18:53:32Z"
 }

@@ -1,9 +1,11 @@
 {
   "version": 1,
-  "asset_id": "79b727f3-a20b-4b35-a5ab-9da1ebe6c0a4",
+  "asset_id": "446c5f65-7d5b-4a08-90eb-02ba13524ba5",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/79b727f3-a20b-4b35-a5ab-9da1ebe6c0a4/ex-cuban-press.mp4",
-  "original_filename": "ex-cuban-press.mp4",
-  "size": 1946722,
-  "created_at": "2026-09-09T13:27:33Z"
+  "url": "/__l5e/assets-v1/446c5f65-7d5b-4a08-90eb-02ba13524ba5/cuban-press.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/446c5f65-7d5b-4a08-90eb-02ba13524ba5/cuban-press.mp4",
+  "original_filename": "cuban-press.mp4",
+  "size": 1698998,
+  "content_type": "video/mp4",
+  "created_at": "2026-09-16T18:53:25Z"
 }
