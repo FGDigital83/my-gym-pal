@@ -1,11 +1,11 @@
 {
   "version": 1,
-  "asset_id": "0498c44a-f928-4315-af9c-e35f4bc9ffe0",
+  "asset_id": "81309b0f-ad2b-4f12-8260-ffd0d751d720",
   "project_id": "7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48",
-  "url": "/__l5e/assets-v1/0498c44a-f928-4315-af9c-e35f4bc9ffe0/ex-curl-predicador-mancuerna.mp4",
-  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/0498c44a-f928-4315-af9c-e35f4bc9ffe0/ex-curl-predicador-mancuerna.mp4",
-  "original_filename": "ex-curl-predicador-mancuerna.mp4",
-  "size": 2865251,
+  "url": "/__l5e/assets-v1/81309b0f-ad2b-4f12-8260-ffd0d751d720/curl-predicador-mancuerna.mp4",
+  "r2_key": "a/v1/7b5cc5f6-b8cc-4589-bbe5-d4ee9129be48/81309b0f-ad2b-4f12-8260-ffd0d751d720/curl-predicador-mancuerna.mp4",
+  "original_filename": "curl-predicador-mancuerna.mp4",
+  "size": 2545720,
   "content_type": "video/mp4",
-  "created_at": "2026-09-05T14:59:39Z"
+  "created_at": "2026-09-21T07:52:28Z"
 }
