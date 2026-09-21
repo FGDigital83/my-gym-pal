@@ -11,5 +11,5 @@
 - [x] Espalda: corregir Dominadas supinas con las palmas hacia el maniquí según las nuevas imágenes.
 - [x] Bíceps: eliminar Curl en polea baja, Curl Zottman, Curl 21s, Chin up y Curl arrastre.
 - [ ] Bíceps: corregir y validar Curl martillo y Curl martillo en cuerda con palmas hacia arriba.
-- [ ] Bíceps: corregir y validar Curl predicador con mancuerna, Curl concentrado, Curl inclinado y Curl en máquina.
+- [x] Bíceps: corregir, validar y enlazar Curl predicador con mancuerna, Curl concentrado, Curl inclinado y Curl en máquina.
 - [ ] Verificar funcionamiento final de la app.
