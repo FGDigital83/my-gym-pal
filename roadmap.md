@@ -10,7 +10,7 @@
 - [x] Espalda: rehacer y validar Jalón al pecho ancho y Jalón a una mano con las nuevas referencias.
 - [x] Espalda: corregir Dominadas supinas con las palmas hacia el maniquí según las nuevas imágenes.
 - [x] Bíceps: eliminar Curl en polea baja, Curl Zottman, Curl 21s, Chin up y Curl arrastre.
-- [ ] Usar imágenes fijas en lugar de vídeos cuando sea posible (pendiente de concretar alcance con el usuario).
+- [x] Generar los vídeos con el modelo de imágenes (fotogramas + montaje), nunca con el generador de vídeo.
 - [ ] Bíceps: corregir y validar Curl martillo y Curl martillo en cuerda con palmas hacia arriba.
 - [x] Bíceps: corregir, validar y enlazar Curl predicador con mancuerna, Curl concentrado, Curl inclinado y Curl en máquina.
 - [ ] Verificar funcionamiento final de la app.
