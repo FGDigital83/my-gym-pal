@@ -11,6 +11,6 @@
 - [x] Espalda: corregir Dominadas supinas con las palmas hacia el maniquí según las nuevas imágenes.
 - [x] Bíceps: eliminar Curl en polea baja, Curl Zottman, Curl 21s, Chin up y Curl arrastre.
 - [x] Generar los vídeos con el modelo de imágenes (fotogramas + montaje), nunca con el generador de vídeo.
-- [ ] Bíceps: corregir y validar Curl martillo y Curl martillo en cuerda con palmas hacia arriba.
+- [ ] Bíceps: corregir y validar primero Curl martillo alterno, con agarre neutro fijo y mancuernas orientadas delante/detrás; después Curl martillo en cuerda.
 - [x] Bíceps: corregir, validar y enlazar Curl predicador con mancuerna, Curl concentrado, Curl inclinado y Curl en máquina.
 - [ ] Verificar funcionamiento final de la app.
