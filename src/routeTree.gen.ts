@@ -9,38 +9,33 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
 import { Route as LoginRouteImport } from './routes/login'
-import { Route as AuthenticatedAiRoutineRouteImport } from './routes/_authenticated.ai-routine'
-import { Route as AuthenticatedHealthRouteImport } from './routes/_authenticated.health'
-import { Route as AuthenticatedNutritionRouteImport } from './routes/_authenticated.nutrition'
+import { Route as AuthenticatedRouteImport } from './routes/_authenticated'
+import { Route as IndexRouteImport } from './routes/index'
 import { Route as AuthenticatedPlanRouteImport } from './routes/_authenticated.plan'
-import { Route as AuthenticatedDayDayIdRouteImport } from './routes/_authenticated.day.$dayId'
+import { Route as AuthenticatedNutritionRouteImport } from './routes/_authenticated.nutrition'
+import { Route as AuthenticatedHealthRouteImport } from './routes/_authenticated.health'
+import { Route as AuthenticatedAiRoutineRouteImport } from './routes/_authenticated.ai-routine'
 import { Route as AuthenticatedExerciseExerciseIdRouteImport } from './routes/_authenticated.exercise.$exerciseId'
+import { Route as AuthenticatedDayDayIdRouteImport } from './routes/_authenticated.day.$dayId'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRoute = AuthenticatedRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedAiRoutineRoute = AuthenticatedAiRoutineRouteImport.update({
-  id: '/ai-routine',
-  path: '/ai-routine',
-  getParentRoute: () => AuthenticatedRoute,
-} as any)
-const AuthenticatedHealthRoute = AuthenticatedHealthRouteImport.update({
-  id: '/health',
-  path: '/health',
+const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
+  id: '/plan',
+  path: '/plan',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedNutritionRoute = AuthenticatedNutritionRouteImport.update({
@@ -48,14 +43,14 @@ const AuthenticatedNutritionRoute = AuthenticatedNutritionRouteImport.update({
   path: '/nutrition',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedPlanRoute = AuthenticatedPlanRouteImport.update({
-  id: '/plan',
-  path: '/plan',
+const AuthenticatedHealthRoute = AuthenticatedHealthRouteImport.update({
+  id: '/health',
+  path: '/health',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
-const AuthenticatedDayDayIdRoute = AuthenticatedDayDayIdRouteImport.update({
-  id: '/day/$dayId',
-  path: '/day/$dayId',
+const AuthenticatedAiRoutineRoute = AuthenticatedAiRoutineRouteImport.update({
+  id: '/ai-routine',
+  path: '/ai-routine',
   getParentRoute: () => AuthenticatedRoute,
 } as any)
 const AuthenticatedExerciseExerciseIdRoute =
@@ -64,6 +59,11 @@ const AuthenticatedExerciseExerciseIdRoute =
     path: '/exercise/$exerciseId',
     getParentRoute: () => AuthenticatedRoute,
   } as any)
+const AuthenticatedDayDayIdRoute = AuthenticatedDayDayIdRouteImport.update({
+  id: '/day/$dayId',
+  path: '/day/$dayId',
+  getParentRoute: () => AuthenticatedRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -139,11 +139,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -153,25 +153,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/ai-routine': {
-      id: '/_authenticated/ai-routine'
-      path: '/ai-routine'
-      fullPath: '/ai-routine'
-      preLoaderRoute: typeof AuthenticatedAiRoutineRouteImport
-      parentRoute: typeof AuthenticatedRoute
-    }
-    '/_authenticated/health': {
-      id: '/_authenticated/health'
-      path: '/health'
-      fullPath: '/health'
-      preLoaderRoute: typeof AuthenticatedHealthRouteImport
+    '/_authenticated/plan': {
+      id: '/_authenticated/plan'
+      path: '/plan'
+      fullPath: '/plan'
+      preLoaderRoute: typeof AuthenticatedPlanRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/nutrition': {
@@ -181,18 +174,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedNutritionRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/plan': {
-      id: '/_authenticated/plan'
-      path: '/plan'
-      fullPath: '/plan'
-      preLoaderRoute: typeof AuthenticatedPlanRouteImport
+    '/_authenticated/health': {
+      id: '/_authenticated/health'
+      path: '/health'
+      fullPath: '/health'
+      preLoaderRoute: typeof AuthenticatedHealthRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
-    '/_authenticated/day/$dayId': {
-      id: '/_authenticated/day/$dayId'
-      path: '/day/$dayId'
-      fullPath: '/day/$dayId'
-      preLoaderRoute: typeof AuthenticatedDayDayIdRouteImport
+    '/_authenticated/ai-routine': {
+      id: '/_authenticated/ai-routine'
+      path: '/ai-routine'
+      fullPath: '/ai-routine'
+      preLoaderRoute: typeof AuthenticatedAiRoutineRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
     '/_authenticated/exercise/$exerciseId': {
@@ -200,6 +193,13 @@ declare module '@tanstack/react-router' {
       path: '/exercise/$exerciseId'
       fullPath: '/exercise/$exerciseId'
       preLoaderRoute: typeof AuthenticatedExerciseExerciseIdRouteImport
+      parentRoute: typeof AuthenticatedRoute
+    }
+    '/_authenticated/day/$dayId': {
+      id: '/_authenticated/day/$dayId'
+      path: '/day/$dayId'
+      fullPath: '/day/$dayId'
+      preLoaderRoute: typeof AuthenticatedDayDayIdRouteImport
       parentRoute: typeof AuthenticatedRoute
     }
   }
